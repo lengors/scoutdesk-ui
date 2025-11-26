@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import react from "@vitejs/plugin-react";
 import tanstackRouter from "@tanstack/router-plugin/vite";
 
@@ -38,6 +39,36 @@ export default ({ mode }: { mode: string }) => {
       }),
       react(),
     ],
+    test: {
+      environment: "jsdom",
+      setupFiles: ["./test/__setup.ts"],
+      include: ["test/**/*.{spec,test}.{ts,tsx}"],
+      exclude: ["node_modules", "dist"],
+      globals: true,
+      css: true,
+      coverage: {
+        provider: "v8",
+        // Include all source files in coverage, not just those touched by tests
+        include: ["src/**/*.{ts,tsx}"],
+
+        // Exclude test files and generated files from coverage
+        exclude: [
+          // test files and helpers
+          "src/**/__tests__/**",
+          "src/**/*.{spec,test}.{ts,tsx}",
+
+          // generated files
+          "src/**/routeTree.gen.{ts,tsx}",
+        ],
+        reporter: ["text", "lcov"],
+        thresholds: {
+          lines: 80,
+          functions: 80,
+          branches: 80,
+          statements: 80,
+        },
+      },
+    },
     server: {
       host: env.HOST,
       port: env.PORT,
