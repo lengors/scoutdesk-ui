@@ -41,6 +41,7 @@ jobs:
         with:
           extra_plugins: |
             @semantic-release/exec
+            @semantic-release/git
             semantic-release-gitmoji
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

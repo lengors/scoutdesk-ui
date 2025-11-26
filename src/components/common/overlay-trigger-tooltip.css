@@ -1,0 +1,29 @@
+.tooltip.bs-tooltip-auto[data-popper-placement^="left"].inherit
+  .tooltip-arrow::before,
+.tooltip.bs-tooltip-start.inherit .tooltip-arrow::before {
+  border-left-color: inherit !important;
+}
+
+.tooltip.bs-tooltip-auto[data-popper-placement^="top"].inherit
+  .tooltip-arrow::before,
+.tooltip.bs-tooltip-top.inherit .tooltip-arrow::before {
+  border-top-color: inherit !important;
+}
+
+.tooltip.bs-tooltip-auto[data-popper-placement^="right"].inherit
+  .tooltip-arrow::before,
+.tooltip.bs-tooltip-end.inherit .tooltip-arrow::before {
+  border-right-color: inherit !important;
+}
+
+.tooltip.bs-tooltip-auto[data-popper-placement^="bottom"].inherit
+  .tooltip-arrow::before,
+.tooltip.bs-tooltip-bottom.inherit .tooltip-arrow::before {
+  border-bottom-color: inherit !important;
+}
+
+.tooltip.inherit .tooltip-inner {
+  background-color: inherit !important;
+  color: inherit !important;
+  text-align: inherit !important;
+}
