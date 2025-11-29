@@ -12,33 +12,53 @@ import type { CreateFileRoute, FileRoutesByPath } from "@tanstack/react-router";
 
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as IndexRouteImport } from "./routes/index";
+import { Route as SpecificationsIndexRouteImport } from "./routes/specifications.index";
+import { Route as SpecificationsNameRouteImport } from "./routes/specifications.$name";
 
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => rootRouteImport,
 } as any);
+const SpecificationsIndexRoute = SpecificationsIndexRouteImport.update({
+  id: "/specifications/",
+  path: "/specifications/",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const SpecificationsNameRoute = SpecificationsNameRouteImport.update({
+  id: "/specifications/$name",
+  path: "/specifications/$name",
+  getParentRoute: () => rootRouteImport,
+} as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
+  "/specifications/$name": typeof SpecificationsNameRoute;
+  "/specifications": typeof SpecificationsIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/specifications/$name": typeof SpecificationsNameRoute;
+  "/specifications": typeof SpecificationsIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
+  "/specifications/$name": typeof SpecificationsNameRoute;
+  "/specifications/": typeof SpecificationsIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/";
+  fullPaths: "/" | "/specifications/$name" | "/specifications";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/";
-  id: "__root__" | "/";
+  to: "/" | "/specifications/$name" | "/specifications";
+  id: "__root__" | "/" | "/specifications/$name" | "/specifications/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  SpecificationsNameRoute: typeof SpecificationsNameRoute;
+  SpecificationsIndexRoute: typeof SpecificationsIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -48,6 +68,20 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/specifications/": {
+      id: "/specifications/";
+      path: "/specifications";
+      fullPath: "/specifications";
+      preLoaderRoute: typeof SpecificationsIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/specifications/$name": {
+      id: "/specifications/$name";
+      path: "/specifications/$name";
+      fullPath: "/specifications/$name";
+      preLoaderRoute: typeof SpecificationsNameRouteImport;
       parentRoute: typeof rootRouteImport;
     };
   }
@@ -62,9 +96,29 @@ declare module "./routes/index" {
     FileRoutesByPath["/"]["fullPath"]
   >;
 }
+declare module "./routes/specifications.$name" {
+  const createFileRoute: CreateFileRoute<
+    "/specifications/$name",
+    FileRoutesByPath["/specifications/$name"]["parentRoute"],
+    FileRoutesByPath["/specifications/$name"]["id"],
+    FileRoutesByPath["/specifications/$name"]["path"],
+    FileRoutesByPath["/specifications/$name"]["fullPath"]
+  >;
+}
+declare module "./routes/specifications.index" {
+  const createFileRoute: CreateFileRoute<
+    "/specifications/",
+    FileRoutesByPath["/specifications/"]["parentRoute"],
+    FileRoutesByPath["/specifications/"]["id"],
+    FileRoutesByPath["/specifications/"]["path"],
+    FileRoutesByPath["/specifications/"]["fullPath"]
+  >;
+}
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SpecificationsNameRoute: SpecificationsNameRoute,
+  SpecificationsIndexRoute: SpecificationsIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

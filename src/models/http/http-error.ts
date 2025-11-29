@@ -4,7 +4,10 @@ export class HttpError extends Error implements HttpFailure {
   readonly #httpFailure: HttpFailure;
 
   constructor(httpFailure: HttpFailure, cause?: unknown) {
-    super(HttpError.#buildErrorMessage(httpFailure), { cause });
+    super(
+      `${httpFailure.status}: ${HttpError.#buildErrorMessage(httpFailure)}`,
+      { cause },
+    );
     this.#httpFailure = httpFailure;
     this.name = "HttpError";
   }
@@ -26,10 +29,14 @@ export class HttpError extends Error implements HttpFailure {
       return httpFailure.response.message;
     }
 
+    if ("error" in httpFailure.response) {
+      return httpFailure.response.error;
+    }
+
     const constraintErrors = httpFailure.response.map(
       ({ property, message }) => `${property}: ${message}`,
     );
 
-    return `Failed to validate constraints: ${constraintErrors.join(", ")}`;
+    return `${constraintErrors.join(", ")}`;
   }
 }

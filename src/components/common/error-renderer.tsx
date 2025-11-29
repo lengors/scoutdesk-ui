@@ -23,6 +23,10 @@ export function ErrorRenderer({ message }: ErrorRendererProps) {
     return message.response.message;
   }
 
+  if ("error" in message.response) {
+    return message.response.error;
+  }
+
   return (
     <ul>
       {message.response.map(({ property, message }, index) => (

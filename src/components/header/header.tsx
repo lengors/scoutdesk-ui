@@ -47,6 +47,11 @@ export function Header() {
               <Nav.Item className="align-items-center d-flex">
                 <HeaderLink to="/">Home</HeaderLink>
               </Nav.Item>
+              {data.roles.some((role) => role !== "user") && (
+                <Nav.Item className="align-items-center d-flex">
+                  <HeaderLink to="/specifications">Specifications</HeaderLink>
+                </Nav.Item>
+              )}
             </Nav>
             <Navbar.Text className="my-auto">
               <Container>
