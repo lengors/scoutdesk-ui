@@ -8,7 +8,7 @@ import type {
 import { notFound } from "@tanstack/react-router";
 import { HttpError } from "../models/http/http-error";
 
-export async function fetchLoaderQuery<
+export async function fetchQuery<
   TQueryFnData,
   TError = DefaultError,
   TData = TQueryFnData,
@@ -23,9 +23,9 @@ export async function fetchLoaderQuery<
     TQueryKey,
     TPageParam
   >,
-): Promise<TData> {
+): Promise<void> {
   try {
-    return await queryClient.fetchQuery(options);
+    await queryClient.fetchQuery(options);
   } catch (error: unknown) {
     if (!(error instanceof HttpError)) {
       throw error;

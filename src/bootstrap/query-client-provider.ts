@@ -1,9 +1,16 @@
+import type { NotificationStack } from "../services/notifications/notification-stack";
+
 import { QueryClient } from "@tanstack/react-query";
+import { notificationStack } from "./notification-stack-provider";
 
 declare module "@tanstack/react-query" {
   interface Register {
     queryMeta: {
       readonly queryClient: QueryClient;
+    };
+
+    mutationMeta: {
+      readonly notificationStack: NotificationStack;
     };
   }
 }
@@ -17,6 +24,11 @@ export const queryClient = new QueryClient({
         get queryClient(): QueryClient {
           return queryClient;
         },
+      },
+    },
+    mutations: {
+      meta: {
+        notificationStack,
       },
     },
   },

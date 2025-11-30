@@ -2,7 +2,7 @@ import type { QueryClient } from "@tanstack/react-query";
 
 import { App } from "../app";
 import { Fragment } from "react";
-import { fetchLoaderQuery } from "../utils/loader-query";
+import { fetchQuery } from "../utils/query";
 import { ErrorPanel } from "../pages/common/error-panel";
 import { PendingPanel } from "../pages/common/pending-panel";
 import { createRootRouteWithContext } from "@tanstack/react-router";
@@ -20,7 +20,7 @@ export const Route = createRootRouteWithContext<{
     </Fragment>
   ),
   loader: async ({ context: { queryClient } }) =>
-    await fetchLoaderQuery(queryClient, userQueryOptions),
+    await fetchQuery(queryClient, userQueryOptions),
   pendingComponent: () => (
     <Fragment>
       <PendingPanel>{`Loading user data...`}</PendingPanel>

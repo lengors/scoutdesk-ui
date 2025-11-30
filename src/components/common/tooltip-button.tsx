@@ -26,17 +26,23 @@ export const TooltipButton = forwardRef(
       ...props
     }: TooltipButtonProps,
     ref: Ref<ComponentRef<"a" | "button">>,
-  ) => (
-    <OverlayTriggerTooltip
-      placement={placement}
-      tooltip={tooltip}
-      tooltipArrowClassName={tooltipArrowClassName}
-      tooltipClassName={tooltipClassName}
-      trigger={trigger}
-    >
-      <Button ref={ref} {...props}>
-        {children}
-      </Button>
-    </OverlayTriggerTooltip>
-  ),
+  ) => {
+    const { ["aria-label"]: ariaLabel, ...buttonProps } = props;
+    const resolvedAriaLabel =
+      ariaLabel ?? (typeof tooltip === "string" ? tooltip : undefined);
+
+    return (
+      <OverlayTriggerTooltip
+        placement={placement}
+        tooltip={tooltip}
+        tooltipArrowClassName={tooltipArrowClassName}
+        tooltipClassName={tooltipClassName}
+        trigger={trigger}
+      >
+        <Button aria-label={resolvedAriaLabel} ref={ref} {...buttonProps}>
+          {children}
+        </Button>
+      </OverlayTriggerTooltip>
+    );
+  },
 );

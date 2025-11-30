@@ -11,6 +11,13 @@ export const NOT_FOUND_ROUTE_CONFIG = {
     subtitle: "Page Not Found!",
     to: "/",
   },
+  [NotFoundRoute.SPECIFICATIONS]: {
+    children: "Go to Specifications",
+    message:
+      "Oops! The specification you're looking for doesn't exist or has been deleted.",
+    subtitle: "Specification Not Found!",
+    to: "/specifications",
+  },
 } as const satisfies Record<
   string,
   ErrorIndicatorProps<Register["router"], string, string | undefined>

@@ -5,14 +5,14 @@ describe("HttpError", () => {
   it("includes string responses in the error message", () => {
     const error = new HttpError({ response: "Plain failure", status: 500 });
 
-    expect(error.message).toBe("Plain failure");
+    expect(error.message).toBe("500: Plain failure");
     expect(error.response).toBe("Plain failure");
   });
 
   it("uses the response message property when available", () => {
     const error = new HttpError({ response: "Custom message", status: 400 });
 
-    expect(error.message).toBe("Custom message");
+    expect(error.message).toBe("400: Custom message");
     expect(error.status).toBe(400);
   });
 
@@ -25,8 +25,6 @@ describe("HttpError", () => {
       status: 500,
     });
 
-    expect(error.message).toBe(
-      "Failed to validate constraints: email: invalid, name: required",
-    );
+    expect(error.message).toBe("500: email: invalid, name: required");
   });
 });

@@ -5,9 +5,14 @@ export const HttpFailureResponse = z.union([
   z.string(),
   z.readonly(z.array(HttpConstraintViolation)),
   z.readonly(
-    z.object({
-      message: z.string(),
-    }),
+    z.union([
+      z.object({
+        message: z.string(),
+      }),
+      z.object({
+        error: z.string(),
+      }),
+    ]),
   ),
 ]);
 
