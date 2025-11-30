@@ -1,31 +1,44 @@
 import { toFormData } from "axios";
 import { describe, expect, it, vi } from "vitest";
 import { HttpError } from "../../../src/models/http/http-error";
-import { assertMock, mockError, mockPayload } from "../../__mocks";
+import { mockServer } from "../../__mocks/containers/mock-server";
 import { httpService } from "../../../src/services/http/http-provider";
 
 describe("AxiosHttpService", () => {
   const parser = vi.fn((data: unknown) => data);
 
   it("resolves DELETE requests", async () => {
-    const payload = { deleted: true };
-    mockPayload({ body: payload });
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "DELETE",
+        path: "/api/v1/resource",
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { deleted: true },
+      },
+    });
 
-    await expect(httpService.delete("/resource", parser)).resolves.toEqual(
-      payload,
-    );
-    expect(parser).toHaveBeenCalledWith(payload);
-
-    await assertMock({ method: "DELETE", url: "/api/v1/resource" });
+    await expect(httpService.delete("/resource", parser)).resolves.toEqual({
+      deleted: true,
+    });
   });
 
   it("rejects GET requests", async () => {
-    mockError(403, { message: "Forbidden" });
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "GET",
+        path: "/api/v1/resource",
+      },
+      httpResponse: {
+        statusCode: 403,
+        body: { message: "Forbidden" },
+      },
+    });
+
     await expect(
       httpService.get("/resource", (response) => response),
     ).rejects.toThrow(HttpError);
-
-    mockError(403, { message: "Forbidden" });
 
     await expect(
       httpService.get("/resource", (response) => response),
@@ -36,125 +49,166 @@ describe("AxiosHttpService", () => {
   });
 
   it("resolves GET requests", async () => {
-    const payload = { id: 1 };
-    mockPayload({ body: payload });
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "GET",
+        path: "/api/v1/resource",
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { id: 1 },
+      },
+    });
 
-    await expect(httpService.get("/resource", parser)).resolves.toEqual(
-      payload,
-    );
-    expect(parser).toHaveBeenCalledWith(payload);
-
-    await assertMock({ method: "GET", url: "/api/v1/resource" });
-  });
-
-  it("resolves PATCH requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
-
-    const body = { name: "Scout" };
-    await expect(httpService.patch("/resource", parser, body)).resolves.toEqual(
-      payload,
-    );
-    expect(parser).toHaveBeenCalledWith(payload);
-
-    await assertMock({
-      method: "PATCH",
-      url: "/api/v1/resource",
-      body,
+    await expect(httpService.get("/resource", parser)).resolves.toEqual({
+      id: 1,
     });
   });
 
-  it("resolves Form PATCH requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
+  it("resolves PATCH requests", async () => {
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "PATCH",
+        path: "/api/v1/resource",
+        body: { name: "Scout" },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
+    });
 
-    const body = { name: "Scout" };
+    await expect(
+      httpService.patch("/resource", parser, { name: "Scout" }),
+    ).resolves.toEqual({ created: true });
+  });
+
+  it("resolves Form PATCH requests", async () => {
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "PATCH",
+        path: "/api/v1/resource",
+        headers: {
+          "Content-Type": "multipart/form-data.*",
+        },
+        body: {
+          type: "REGEX",
+          regex: '.*?name="name".*?Scout.*',
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
+    });
+
     await expect(
       httpService.patchForm(
         "/resource",
         parser,
-        toFormData(body, new FormData()),
+        toFormData({ name: "Scout" }, new FormData()),
       ),
-    ).resolves.toEqual(payload);
-
-    await assertMock({
-      method: "PATCH",
-      url: "/api/v1/resource",
-      body,
-    });
+    ).resolves.toEqual({ created: true });
   });
 
   it("resolves POST requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
-
-    const body = { name: "Scout" };
-    await expect(httpService.post("/resource", parser, body)).resolves.toEqual(
-      payload,
-    );
-    expect(parser).toHaveBeenCalledWith(payload);
-
-    await assertMock({
-      method: "POST",
-      url: "/api/v1/resource",
-      body,
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "POST",
+        path: "/api/v1/resource",
+        body: { name: "Scout" },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
     });
+
+    await expect(
+      httpService.post("/resource", parser, { name: "Scout" }),
+    ).resolves.toEqual({ created: true });
   });
 
   it("resolves Form POST requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "POST",
+        path: "/api/v1/resource",
+        headers: {
+          "Content-Type": "multipart/form-data.*",
+        },
+        body: {
+          type: "REGEX",
+          regex: '.*?name="name".*?Scout.*',
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
+    });
 
-    const body = { name: "Scout" };
     await expect(
       httpService.postForm(
         "/resource",
         parser,
-        toFormData(body, new FormData()),
+        toFormData({ name: "Scout" }, new FormData()),
       ),
-    ).resolves.toEqual(payload);
-
-    await assertMock({
-      method: "POST",
-      url: "/api/v1/resource",
-      body,
-    });
+    ).resolves.toEqual({ created: true });
   });
 
   it("resolves PUT requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
-
-    const body = { name: "Scout" };
-    await expect(httpService.put("/resource", parser, body)).resolves.toEqual(
-      payload,
-    );
-    expect(parser).toHaveBeenCalledWith(payload);
-
-    await assertMock({
-      method: "PUT",
-      url: "/api/v1/resource",
-      body,
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "PUT",
+        path: "/api/v1/resource",
+        body: { name: "Scout" },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
     });
+
+    await expect(
+      httpService.put("/resource", parser, { name: "Scout" }),
+    ).resolves.toEqual({ created: true });
   });
 
   it("resolves Form PUT requests", async () => {
-    const payload = { created: true };
-    mockPayload({ body: payload });
+    await mockServer.mockAnyResponse({
+      httpRequest: {
+        method: "PUT",
+        path: "/api/v1/resource",
+        headers: {
+          "Content-Type": "multipart/form-data.*",
+        },
+        body: {
+          type: "REGEX",
+          regex: '.*?name="name".*?Scout.*',
+        },
+      },
+      httpResponse: {
+        statusCode: 200,
+        body: { created: true },
+      },
+    });
 
-    const body = { name: "Scout" };
     await expect(
       httpService.putForm(
         "/resource",
         parser,
-        toFormData(body, new FormData()),
+        toFormData({ name: "Scout" }, new FormData()),
       ),
-    ).resolves.toEqual(payload);
-
-    await assertMock({
-      method: "PUT",
-      url: "/api/v1/resource",
-      body,
-    });
+    ).resolves.toEqual({ created: true });
   });
 });

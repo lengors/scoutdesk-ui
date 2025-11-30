@@ -4,18 +4,18 @@ import type {
   QueryKey,
 } from "@tanstack/react-query";
 import { describe, expect, it, vi } from "vitest";
+import { fetchQuery } from "../../src/utils/query";
 import { HttpError } from "../../src/models/http/http-error";
-import { fetchLoaderQuery } from "../../src/utils/loader-query";
 
 const notFoundSymbol = Symbol();
 
-describe("fetchLoaderQuery", () => {
+describe("ensureQueryData", () => {
   it("rethrows non-HttpError failures", async () => {
     const failure = new Error("boom");
     const result = Promise.reject(failure);
 
     await expect(
-      fetchLoaderQuery(
+      fetchQuery(
         {
           fetchQuery: vi.fn().mockReturnValue(result),
         } as unknown as QueryClient,
@@ -47,7 +47,7 @@ describe("fetchLoaderQuery", () => {
     const result = Promise.reject(httpError);
 
     await expect(
-      fetchLoaderQuery(
+      fetchQuery(
         {
           fetchQuery: vi.fn().mockReturnValue(result),
         } as unknown as QueryClient,

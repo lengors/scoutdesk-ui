@@ -1,5 +1,5 @@
-import { mockUser } from "../__mocks";
 import { act, screen } from "@testing-library/react";
+import { mockUser } from "../__mocks/models/users/mock-user";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("bootstrap", () => {
