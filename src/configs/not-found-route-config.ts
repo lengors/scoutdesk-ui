@@ -11,6 +11,13 @@ export const NOT_FOUND_ROUTE_CONFIG = {
     subtitle: "Page Not Found!",
     to: "/",
   },
+  [NotFoundRoute.PROFILES]: {
+    children: "Go to Profiles",
+    message:
+      "Oops! The profile you're looking for doesn't exist or has been deleted.",
+    subtitle: "Profile Not Found!",
+    to: "/profiles",
+  },
   [NotFoundRoute.SPECIFICATIONS]: {
     children: "Go to Specifications",
     message:

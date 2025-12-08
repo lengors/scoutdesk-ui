@@ -1,1 +1,3 @@
-export type HttpRequestConfig = NonNullable<unknown>;
+export type HttpRequestConfig = {
+  readonly params?: unknown;
+};

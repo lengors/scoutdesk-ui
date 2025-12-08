@@ -15,12 +15,13 @@ export function useForm<
   TTransformedValues = TFieldValues,
 >(props?: UseFormProps<TFieldValues, TContext, TTransformedValues>) {
   const {
-    formState: { isSubmitSuccessful, isSubmitting, ...formState },
+    formState,
     handleSubmit: nativeHandleSubmit,
     reset,
     setError,
     ...form
   } = useNativeForm<TFieldValues, TContext, TTransformedValues>(props);
+  const { isSubmitSuccessful } = formState;
 
   const handleSubmit = useCallback(
     (
@@ -74,7 +75,7 @@ export function useForm<
   }, [isSubmitSuccessful, reset]);
 
   return {
-    formState: { isSubmitSuccessful, isSubmitting, ...formState },
+    formState,
     handleSubmit,
     reset,
     ...form,

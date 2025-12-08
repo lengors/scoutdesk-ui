@@ -32,7 +32,7 @@ export function SpecificationTableEntry({
     specificationQueryOptions({ owner, name }),
   );
   const deleteMutation = useMutation(deleteSpecificationMutationOptions);
-  const updateMutation = useMutation(updateSpecificationMutationOptions(owner));
+  const updateMutation = useMutation(updateSpecificationMutationOptions);
 
   if (isLoading) {
     return (
@@ -74,7 +74,7 @@ export function SpecificationTableEntry({
               <InfoCircle />
             </TooltipButtonLink>
             <ConfirmationModalButton
-              message={`Are you sure you want to ${action} the specification "${name}"`}
+              message={`Are you sure you want to ${action} the specification "${name}"?`}
               mutation={updateMutation}
               size="sm"
               title={`${capitalize(action)} specification`}
@@ -85,7 +85,7 @@ export function SpecificationTableEntry({
               {action === "archive" ? <ArchiveFill /> : <CheckSquareFill />}
             </ConfirmationModalButton>
             <ConfirmationModalButton
-              message={`Are you sure you want to delete the specification "${name}"`}
+              message={`Are you sure you want to delete the specification "${name}"?`}
               mutation={deleteMutation}
               size="sm"
               title="Delete specification"

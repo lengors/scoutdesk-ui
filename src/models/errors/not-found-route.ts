@@ -3,6 +3,7 @@ export const NotFoundRoute = {
     const unknown: unique symbol = Symbol();
     return unknown as typeof unknown;
   })(),
+  PROFILES: "profiles",
   SPECIFICATIONS: "specifications",
 } as const;
 
