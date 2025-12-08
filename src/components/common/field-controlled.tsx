@@ -1,3 +1,11 @@
+import type { ButtonVariant } from "react-bootstrap/types";
+
+import { Select } from "./select";
+import { CopyButton } from "./copy-button";
+import { TooltipButton } from "./tooltip-button";
+import { Eye, EyeSlash } from "react-bootstrap-icons";
+import { TooltipFormControl } from "./tooltip-form-control";
+import { Form, InputGroup, type FormControlProps } from "react-bootstrap";
 import {
   useController,
   type Control,
@@ -9,11 +17,6 @@ import {
   flattenFieldErrorTree,
   type FieldErrorTree,
 } from "../../utils/field-error";
-import { CopyButton } from "./copy-button";
-import { TooltipButton } from "./tooltip-button";
-import { Eye, EyeSlash } from "react-bootstrap-icons";
-import { TooltipFormControl } from "./tooltip-form-control";
-import { Form, InputGroup, type FormControlProps } from "react-bootstrap";
 import {
   useEffect,
   useId,
@@ -21,34 +24,53 @@ import {
   useRef,
   useState,
   type ChangeEvent,
+  type ReactNode,
 } from "react";
 
-export interface FieldControlledProps<
+export type FieldControlledProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TTransformedValues = TFieldValues,
-> extends Omit<
-    FormControlProps,
-    | "children"
-    | "isInvalid"
-    | "isValid"
-    | "name"
-    | "onBlur"
-    | "onChange"
-    | "readOnly"
-    | "type"
-    | "value"
-  > {
+> = Omit<
+  FormControlProps,
+  | "as"
+  | "children"
+  | "isInvalid"
+  | "isValid"
+  | "name"
+  | "onBlur"
+  | "onChange"
+  | "type"
+  | "value"
+> & {
   readonly control: Control<TFieldValues, unknown, TTransformedValues>;
   readonly label: string;
   readonly name: TName;
-  readonly readOnly?: boolean;
-  readonly type: [PathValue<TFieldValues, TName>] extends [FileList | File[]]
-    ? "file"
-    : [PathValue<TFieldValues, TName>] extends [string]
-      ? "password" | "text"
-      : never;
-}
+} & (
+    | {
+        readonly type: [PathValue<TFieldValues, TName>] extends [
+          FileList | File[],
+        ]
+          ? "file"
+          : [PathValue<TFieldValues, TName>] extends [string]
+            ? "email" | "password" | "text"
+            : never;
+      }
+    | {
+        readonly compareFn?: (
+          optionValue: PathValue<TFieldValues, TName>,
+          selectedValue: PathValue<TFieldValues, TName>,
+        ) => boolean;
+        readonly children?: ReactNode;
+        readonly options: ReadonlyArray<{
+          readonly key?: string;
+          readonly label: string;
+          readonly value: PathValue<TFieldValues, TName>;
+        }>;
+        readonly type: "select";
+        readonly variant?: ButtonVariant;
+      }
+  );
 
 export function FieldControlled<
   TFieldValues extends FieldValues = FieldValues,
@@ -72,7 +94,11 @@ export function FieldControlled<
   const [fieldError, setFieldError] = useState(error);
   const [fieldSubmitCount, setFieldSubmitCount] = useState(submitCount);
 
-  const { onChange, ...field } = useMemo(
+  const {
+    onChange,
+    ref: fieldRef,
+    ...field
+  } = useMemo(
     () => ({
       ...fieldProps,
       disabled: disabled || fieldDisabled,
@@ -90,11 +116,26 @@ export function FieldControlled<
     [fieldError],
   );
 
+  const {
+    compareFn = (
+      optionValue: PathValue<TFieldValues, TName>,
+      selectedValue: PathValue<TFieldValues, TName>,
+    ) => optionValue === selectedValue,
+    options,
+    ...remainingProps
+  } = "options" in props
+    ? props
+    : { compareFn: undefined, options: undefined, ...props };
+
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const [controlledPresentableValue, setControlledPresentableValue] = useState<
+    string | number | string[]
+  >();
   const presentableValue = useMemo(
-    () => (type !== "file" ? value : undefined),
-    [type, value],
+    () =>
+      type !== "file" && type !== "select" ? value : controlledPresentableValue,
+    [controlledPresentableValue, type, value],
   );
 
   useEffect(() => {
@@ -103,7 +144,10 @@ export function FieldControlled<
       return;
     }
 
-    const inputDescriptor = Object.getOwnPropertyDescriptor(input, "files");
+    const inputDescriptor = Object.getOwnPropertyDescriptor(
+      Object.getPrototypeOf(input),
+      "files",
+    );
     const isWritable =
       inputDescriptor?.set !== undefined || inputDescriptor?.writable === true;
     if (!isWritable) {
@@ -117,8 +161,12 @@ export function FieldControlled<
     }
 
     if (fieldValue instanceof File) {
-      dataTransfer.items.add(value);
+      dataTransfer.items.add(fieldValue);
     } else if (fieldValue instanceof FileList) {
+      for (const file of fieldValue) {
+        dataTransfer.items.add(file);
+      }
+    } else if (Array.isArray(fieldValue)) {
       for (const file of fieldValue) {
         dataTransfer.items.add(file);
       }
@@ -138,31 +186,59 @@ export function FieldControlled<
     <Form.Group>
       <Form.Label htmlFor={inputId}>{label}</Form.Label>
       <InputGroup hasValidation={isSubmitted}>
-        <TooltipFormControl
-          {...props}
-          {...field}
-          id={inputId}
-          isInvalid={isSubmitted ? errorMessages.length > 0 : undefined}
-          isValid={
-            isSubmitted
-              ? errorMessages.length === 0 && errors.root === undefined
-              : undefined
-          }
-          onChange={
-            type === "file"
-              ? (event: ChangeEvent<HTMLInputElement>) =>
-                  onChange(event.target.files)
-              : onChange
-          }
-          ref={(value) => {
-            inputRef.current = value;
-            field.ref(value);
-          }}
-          tooltip={presentableValue}
-          trigger={["focus", "hover"]}
-          value={presentableValue}
-          type={showPassword ? "text" : type}
-        />
+        {options !== undefined ? (
+          <Select
+            {...remainingProps}
+            {...field}
+            as={(props) => (
+              <TooltipFormControl
+                {...props}
+                tooltip={presentableValue}
+                trigger={["focus", "hover"]}
+                type={showPassword ? "text" : type}
+              />
+            )}
+            compareFn={compareFn}
+            id={inputId}
+            isInvalid={isSubmitted ? errorMessages.length > 0 : undefined}
+            isValid={
+              isSubmitted
+                ? errorMessages.length === 0 && errors.root === undefined
+                : undefined
+            }
+            onChange={(instance) => onChange(instance)}
+            onUpdate={setControlledPresentableValue}
+            options={options}
+            ref={fieldRef}
+            value={value}
+          />
+        ) : (
+          <TooltipFormControl
+            {...remainingProps}
+            {...field}
+            id={inputId}
+            isInvalid={isSubmitted ? errorMessages.length > 0 : undefined}
+            isValid={
+              isSubmitted
+                ? errorMessages.length === 0 && errors.root === undefined
+                : undefined
+            }
+            onChange={
+              type === "file"
+                ? (event: ChangeEvent<HTMLInputElement>) =>
+                    onChange(event.target.files)
+                : onChange
+            }
+            ref={(value) => {
+              inputRef.current = value;
+              fieldRef(value);
+            }}
+            tooltip={presentableValue}
+            trigger={["focus", "hover"]}
+            value={presentableValue}
+            type={showPassword ? "text" : type}
+          />
+        )}
         {type === "password" && (
           <TooltipButton
             onClick={() => setShowPassword((previous) => !previous)}

@@ -1,3 +1,4 @@
+import { z } from "zod/mini";
 import { act, screen } from "@testing-library/react";
 import { mockUser } from "../__mocks/models/users/mock-user";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -5,7 +6,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 describe("bootstrap", () => {
   beforeEach(() => (document.body.innerHTML = ""));
 
-  afterEach(() => vi.resetModules());
+  afterEach(() => {
+    vi.resetModules();
+    z.globalRegistry.clear();
+  });
 
   it("renders application", async () => {
     mockUser();

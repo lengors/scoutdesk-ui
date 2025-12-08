@@ -62,30 +62,37 @@ export function Specification() {
           >
             <Row className="g-3">
               <Col xs={12}>
-                <Card.Title className="align-self-center border-2 border-body border-bottom d-flex mb-0">
-                  <Breadcrumb className="fs-3 h3 mb-0">
-                    <BreadcrumbItemLink
-                      activeOptions={{ exact: true }}
-                      to="/specifications"
+                <Row className="g-3">
+                  <Col xs={12}>
+                    <Card.Title className="align-self-center d-flex mb-0">
+                      <Breadcrumb className="fs-3 h3 mb-0">
+                        <BreadcrumbItemLink
+                          activeOptions={{ exact: true }}
+                          to="/specifications"
+                        >
+                          Specifications
+                        </BreadcrumbItemLink>
+                        <Breadcrumb.Item active>{name}</Breadcrumb.Item>
+                      </Breadcrumb>
+                    </Card.Title>
+                  </Col>
+                </Row>
+                <hr className="mb-3 mt-0" />
+                <Row className="g-3">
+                  <Col xs={12}>
+                    <SyntaxHighlighter
+                      className="mb-0 p-3 rounded-3 shadow"
+                      language="yaml"
+                      showLineNumbers
+                      style={
+                        theme === "dark" ? atomOneDarkReasonable : atomOneLight
+                      }
+                      wrapLongLines
                     >
-                      Specifications
-                    </BreadcrumbItemLink>
-                    <Breadcrumb.Item active>{name}</Breadcrumb.Item>
-                  </Breadcrumb>
-                </Card.Title>
-              </Col>
-              <Col xs={12}>
-                <SyntaxHighlighter
-                  className="mb-0 p-3 rounded-3 shadow"
-                  language="yaml"
-                  showLineNumbers
-                  style={
-                    theme === "dark" ? atomOneDarkReasonable : atomOneLight
-                  }
-                  wrapLongLines
-                >
-                  {specificationYaml}
-                </SyntaxHighlighter>
+                      {specificationYaml}
+                    </SyntaxHighlighter>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </CardPanel>

@@ -47,6 +47,9 @@ export function Header() {
               <Nav.Item className="align-items-center d-flex">
                 <HeaderLink to="/">Home</HeaderLink>
               </Nav.Item>
+              <Nav.Item className="align-items-center d-flex">
+                <HeaderLink to="/profiles">Profiles</HeaderLink>
+              </Nav.Item>
               {data.roles.some((role) => role !== "user") && (
                 <Nav.Item className="align-items-center d-flex">
                   <HeaderLink to="/specifications">Specifications</HeaderLink>
