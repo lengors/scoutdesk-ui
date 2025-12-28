@@ -1,3 +1,4 @@
+import type { HttpRequestConfig } from "../../models/http/http-request-config";
 import type { ScraperOwnedSpecificationReference } from "../../models/specifications/scraper-owned-specification-reference";
 
 import { queryOptions } from "@tanstack/react-query";
@@ -14,7 +15,8 @@ export const specificationQueryOptions = (
     enabled: ({ meta }) =>
       meta?.queryClient?.getQueryState(SPECIFICATIONS_KEY)?.isInvalidated !==
       true,
-    queryFn: async () => await findSpecification(reference.name),
+    queryFn: async ({ signal }: HttpRequestConfig) =>
+      await findSpecification(reference.name, { signal }),
     queryKey: specificationKey(reference),
   });
 

@@ -4,6 +4,7 @@ import {
   CircleHalf,
   MoonStarsFill,
 } from "react-bootstrap-icons";
+import { Fragment } from "react";
 import { HeaderLink } from "./header-link";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { TooltipButton } from "../common/tooltip-button";
@@ -105,8 +106,12 @@ export function Header() {
                         <div className="p-1">
                           <Row>
                             <Col xs={12}>
-                              <span>{data?.name}</span>
-                              <br />
+                              {(data?.name?.trim()?.length ?? 0) > 0 && (
+                                <Fragment>
+                                  <span>{data?.name}</span>
+                                  <br />
+                                </Fragment>
+                              )}
                               <span className="text-muted">
                                 @{data?.username}
                               </span>

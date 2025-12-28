@@ -3,21 +3,21 @@ import type { ScraperOwnedSpecificationReference } from "../../models/specificat
 import { SPECIFICATIONS_KEY } from "./specification-keys";
 
 function buildSharedKey(): readonly [...typeof SPECIFICATIONS_KEY, "shared"];
-function buildSharedKey<T extends NonNullable<unknown>>(
-  value: T,
-): readonly [...typeof SPECIFICATIONS_KEY, T, "shared"];
-function buildSharedKey<T extends NonNullable<unknown>>(value?: T) {
+function buildSharedKey<TValue extends NonNullable<unknown>>(
+  value: TValue,
+): readonly [...typeof SPECIFICATIONS_KEY, TValue, "shared"];
+function buildSharedKey<TValue extends NonNullable<unknown>>(value?: TValue) {
   return value === undefined
     ? ([...SPECIFICATIONS_KEY, "shared"] as const)
     : ([...SPECIFICATIONS_KEY, value, "shared"] as const);
 }
 
 export function sharedSpecificationsKey(): ReturnType<typeof buildSharedKey>;
-export function sharedSpecificationsKey<T extends string>(
-  query: T,
-): ReturnType<typeof buildSharedKey<T>>;
-export function sharedSpecificationsKey<T extends NonNullable<unknown>>(
-  value?: T,
+export function sharedSpecificationsKey<TQuery extends string>(
+  query: TQuery,
+): ReturnType<typeof buildSharedKey<TQuery>>;
+export function sharedSpecificationsKey<TQuery extends NonNullable<unknown>>(
+  value?: TQuery,
 ) {
   return value !== undefined ? buildSharedKey(value) : buildSharedKey();
 }

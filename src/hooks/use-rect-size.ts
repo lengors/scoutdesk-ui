@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useState } from "react";
 
-export function useRectSize<T extends HTMLElement>() {
-  const [ref, setRef] = useState<T | null>(null);
+export function useRectSize<TElement extends HTMLElement>() {
+  const [ref, setRef] = useState<TElement | null>(null);
   const [observedRectSize, setObservedRectSize] = useState<{
     readonly height: number;
     readonly width: number;

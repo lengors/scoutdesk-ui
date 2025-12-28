@@ -21,6 +21,7 @@ export function useForm<
     setError,
     ...form
   } = useNativeForm<TFieldValues, TContext, TTransformedValues>(props);
+  const resetOptions = props?.resetOptions;
   const { isSubmitSuccessful } = formState;
 
   const handleSubmit = useCallback(
@@ -70,9 +71,9 @@ export function useForm<
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      reset(undefined, resetOptions);
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, resetOptions]);
 
   return {
     formState,

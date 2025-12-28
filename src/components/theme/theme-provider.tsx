@@ -1,15 +1,6 @@
-import {
-  type ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
 import { ThemeContext } from "../../contexts/theme-context";
-import { ThemeSystemProvider } from "./theme-system-provider";
-import { useLocalStorage } from "../../hooks/use-local-storage";
-import { ThemePreference } from "../../models/theme/theme-preference";
-import { ThemePreferenceProvider } from "./theme-preference-provider";
+import { type ReactNode, useContext, useEffect, useRef } from "react";
+import { useThemeContextProvider } from "../../hooks/use-theme-context-provider";
 
 export interface ThemeProviderProps {
   readonly children?: ReactNode;
@@ -17,18 +8,7 @@ export interface ThemeProviderProps {
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const themeContext = useContext(ThemeContext);
-  const [themePreference, setThemePreference] = useLocalStorage(
-    "theme-preference",
-    ThemePreference.parse,
-  );
-  const togglePreference = useCallback(() => {
-    if (themePreference === "system") {
-      setThemePreference("dark");
-    } else {
-      setThemePreference(themePreference === "dark" ? "light" : "system");
-    }
-  }, [setThemePreference, themePreference]);
-
+  const value = useThemeContextProvider();
   const exceptionTriggered = useRef(false);
 
   useEffect(() => {
@@ -40,16 +20,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
   }, [themeContext]);
 
-  return themePreference === "system" ? (
-    <ThemeSystemProvider togglePreference={togglePreference}>
-      {children}
-    </ThemeSystemProvider>
-  ) : (
-    <ThemePreferenceProvider
-      themePreference={themePreference}
-      togglePreference={togglePreference}
-    >
-      {children}
-    </ThemePreferenceProvider>
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }

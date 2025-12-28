@@ -4,7 +4,6 @@ import { Select } from "./select";
 import { CopyButton } from "./copy-button";
 import { TooltipButton } from "./tooltip-button";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
-import { TooltipFormControl } from "./tooltip-form-control";
 import { Form, InputGroup, type FormControlProps } from "react-bootstrap";
 import {
   useController,
@@ -191,12 +190,7 @@ export function FieldControlled<
             {...remainingProps}
             {...field}
             as={(props) => (
-              <TooltipFormControl
-                {...props}
-                tooltip={presentableValue}
-                trigger={["focus", "hover"]}
-                type={showPassword ? "text" : type}
-              />
+              <Form.Control {...props} type={showPassword ? "text" : type} />
             )}
             compareFn={compareFn}
             id={inputId}
@@ -213,7 +207,7 @@ export function FieldControlled<
             value={value}
           />
         ) : (
-          <TooltipFormControl
+          <Form.Control
             {...remainingProps}
             {...field}
             id={inputId}
@@ -233,8 +227,6 @@ export function FieldControlled<
               inputRef.current = value;
               fieldRef(value);
             }}
-            tooltip={presentableValue}
-            trigger={["focus", "hover"]}
             value={presentableValue}
             type={showPassword ? "text" : type}
           />

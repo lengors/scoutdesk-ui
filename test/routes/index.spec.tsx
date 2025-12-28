@@ -100,7 +100,7 @@ describe("routes/index", () => {
     renderRoute("/");
 
     const dispatchSystemThemeChange = (matches: boolean) => {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
       const event = new Event("change") as MediaQueryListEvent;
       Object.defineProperty(event, "matches", { value: matches });
       mediaQuery.dispatchEvent(event);
