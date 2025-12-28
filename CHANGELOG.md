@@ -1,3 +1,9 @@
+# [v1.0.0-dev.4](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2025-12-28)
+
+## ✨ New Features
+
+- [`fcde0cb`](https://github.com/lengors/scoutdesk-ui/commit/fcde0cb) Add content to home page
+
 # [v1.0.0-dev.3](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2025-12-08)
 
 ## ✨ New Features
