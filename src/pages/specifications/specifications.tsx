@@ -22,7 +22,7 @@ export function Specifications() {
     formState: { isSubmitting },
     handleSubmit,
   } = useForm<{
-    specification: FileList | [File] | [];
+    readonly specification: FileList | [File] | [];
   }>({
     defaultValues: {
       specification: [],

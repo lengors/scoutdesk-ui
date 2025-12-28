@@ -46,7 +46,8 @@ export const updateSpecificationMutationOptions = mutationOptions({
 });
 
 export const uploadSpecificationMutationOptions = mutationOptions({
-  mutationFn: uploadSpecification,
+  mutationFn: async (specification?: File) =>
+    await uploadSpecification(specification),
   onSuccess: async (_0, _1, _2, { client }) =>
     await client.invalidateQueries({
       exact: false,

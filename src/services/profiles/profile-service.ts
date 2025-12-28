@@ -1,3 +1,4 @@
+import type { HttpRequestConfig } from "../../models/http/http-request-config";
 import type { ScraperUnownedProfile } from "../../models/profiles/scraper-unowned-profile";
 
 import { z } from "zod/mini";
@@ -8,40 +9,62 @@ import { ScraperOwnedProfileRequirementBatch } from "../../models/profiles/scrap
 
 const PROFILE_PATH = "/scrapers/profiles";
 
-export async function deleteProfile(name: string) {
-  return await httpService.delete(`${PROFILE_PATH}/${name}`, z.unknown());
-}
-
-export async function deleteProfiles() {
-  return await httpService.delete(PROFILE_PATH, z.unknown());
-}
-
-export async function findProfile(name: string) {
-  return await httpService.get(`${PROFILE_PATH}/${name}`, ScraperOwnedProfile);
-}
-
-export async function findProfileRequirements(name: string) {
-  return await httpService.get(
-    `${PROFILE_PATH}/${name}/requirements`,
-    ScraperOwnedProfileRequirementBatch,
+export async function deleteProfile(name: string, config?: HttpRequestConfig) {
+  return await httpService.delete(
+    `${PROFILE_PATH}/${name}`,
+    z.unknown(),
+    config,
   );
 }
 
-export async function findProfiles() {
-  return await httpService.get(PROFILE_PATH, ScraperOwnedProfileArray);
+export async function deleteProfiles(config?: HttpRequestConfig) {
+  return await httpService.delete(PROFILE_PATH, z.unknown(), config);
 }
 
-export async function saveProfile(request: ScraperUnownedProfile) {
-  return await httpService.put(PROFILE_PATH, ScraperOwnedProfile, request);
+export async function findProfile(name: string, config?: HttpRequestConfig) {
+  return await httpService.get(
+    `${PROFILE_PATH}/${name}`,
+    ScraperOwnedProfile,
+    config,
+  );
+}
+
+export async function findProfileRequirements(
+  name: string,
+  config?: HttpRequestConfig,
+) {
+  return await httpService.get(
+    `${PROFILE_PATH}/${name}/requirements`,
+    ScraperOwnedProfileRequirementBatch,
+    config,
+  );
+}
+
+export async function findProfiles(config?: HttpRequestConfig) {
+  return await httpService.get(PROFILE_PATH, ScraperOwnedProfileArray, config);
+}
+
+export async function saveProfile(
+  request: ScraperUnownedProfile,
+  config?: HttpRequestConfig,
+) {
+  return await httpService.put(
+    PROFILE_PATH,
+    ScraperOwnedProfile,
+    request,
+    config,
+  );
 }
 
 export async function updateProfile(
   name: string,
   request: Partial<Omit<ScraperUnownedProfile, "name">>,
+  config?: HttpRequestConfig,
 ) {
   return await httpService.patch(
     `${PROFILE_PATH}/${name}`,
     ScraperOwnedProfile,
     request,
+    config,
   );
 }

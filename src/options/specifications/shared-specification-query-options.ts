@@ -1,3 +1,4 @@
+import type { HttpRequestConfig } from "../../models/http/http-request-config";
 import type { ScraperOwnedSpecificationReference } from "../../models/specifications/scraper-owned-specification-reference";
 
 import { queryOptions } from "@tanstack/react-query";
@@ -14,15 +15,17 @@ export const sharedSpecificationQueryOptions = (
   reference: ScraperOwnedSpecificationReference,
 ) =>
   queryOptions({
-    queryFn: async () => await findSharedSpecification(reference),
+    queryFn: async ({ signal }: HttpRequestConfig) =>
+      await findSharedSpecification(reference, { signal }),
     queryKey: sharedSpecificationKey(reference),
   });
 
 export const sharedSpecificationsQueryOptions = (query: string) =>
   queryOptions({
-    queryFn: async () =>
+    queryFn: async ({ signal }: HttpRequestConfig) =>
       await findSharedSpecifications(
         query.trim().length === 0 ? undefined : { query },
+        { signal },
       ),
     queryKey: sharedSpecificationsKey(query),
     select: (data) =>

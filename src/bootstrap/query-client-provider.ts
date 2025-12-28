@@ -6,6 +6,7 @@ import { notificationStack } from "./notification-stack-provider";
 declare module "@tanstack/react-query" {
   interface Register {
     queryMeta: {
+      readonly notificationStack: NotificationStack;
       readonly queryClient: QueryClient;
     };
 
@@ -21,6 +22,7 @@ export const queryClient = new QueryClient({
       retry: false,
       staleTime: Infinity,
       meta: {
+        notificationStack,
         get queryClient(): QueryClient {
           return queryClient;
         },

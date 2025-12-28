@@ -11,7 +11,8 @@ export function ErrorPanel({ error }: ErrorPanelProps) {
   return (
     <ErrorIndicator
       {...(typeof error !== "string" &&
-      (!(error instanceof Error) || error instanceof HttpError)
+      (!(error instanceof Error) || error instanceof HttpError) &&
+      "status" in error
         ? { title: error.status }
         : {})}
       message={error}

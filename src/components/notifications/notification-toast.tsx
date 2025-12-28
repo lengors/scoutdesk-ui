@@ -4,11 +4,15 @@ import { Fragment, useState } from "react";
 import { Ratio, Toast } from "react-bootstrap";
 import { ErrorRenderer } from "../common/error-renderer";
 
+import "./notification-toast.css";
+
 export interface NotificationToastProps extends Notification {
+  readonly className?: string;
   readonly onExited?: (element: HTMLElement) => void;
 }
 
 export function NotificationToast({
+  className,
   delay,
   message,
   level,
@@ -20,6 +24,7 @@ export function NotificationToast({
   return (
     <Toast
       autohide={delay !== undefined}
+      className={className}
       delay={delay}
       onClose={() => setShow(false)}
       onExited={onExited}
@@ -36,7 +41,7 @@ export function NotificationToast({
         <strong className="me-auto">{title}</strong>
       </Toast.Header>
       <Toast.Body>
-        <ErrorRenderer message={message} />
+        <ErrorRenderer level={level} message={message} />
       </Toast.Body>
     </Toast>
   );

@@ -1,0 +1,26 @@
+.carousel.stock-list .carousel-control-prev {
+  order: -1 !important;
+}
+
+.carousel.stock-list .carousel-control-next {
+  order: 1 !important;
+}
+
+.carousel.stock-list .carousel-control-next,
+.carousel.stock-list .carousel-control-prev {
+  flex: 1 1 auto !important;
+  position: static !important;
+  width: auto !important;
+}
+
+.carousel.stock-list .carousel-inner {
+  align-self: center !important;
+  flex: 1 1 auto !important;
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+  order: 0 !important;
+}
+
+.carousel.stock-list .carousel-inner .carousel-item {
+  display: block !important;
+}
