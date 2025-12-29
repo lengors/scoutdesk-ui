@@ -3,6 +3,7 @@ import type { DefaultError, UseMutationResult } from "@tanstack/react-query";
 
 import { ModalButton } from "./modal-button";
 import { SubmitButton } from "./submit-button";
+import { useTranslation } from "react-i18next";
 import { useState, type ReactNode } from "react";
 import { TooltipButton } from "./tooltip-button";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
@@ -45,6 +46,7 @@ export function ConfirmationModalButton<
   variables,
   variant,
 }: ConfirmationModalButtonProps<TData, TError, TVariables, TOnMutateResult>) {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const [successTracker, setSuccessTracker] = useState(false);
 
@@ -109,10 +111,10 @@ export function ConfirmationModalButton<
             onClick={() => setShow(false)}
             variant="secondary"
           >
-            Cancel
+            {t("common.cancel")}
           </Button>
           <SubmitButton disabled={isPending} variant={variant}>
-            Confirm
+            {t("common.confirm")}
           </SubmitButton>
         </Modal.Footer>
       </Form>

@@ -15,8 +15,14 @@ describe("Root", () => {
 
     renderRoute("/missing");
 
-    expect(await screen.findByText(/page not found!/i)).toBeVisible();
-    expect(screen.getByRole("button", { name: /go to home/i })).toBeVisible();
+    expect(
+      await screen.findByText(/errors\.notFound\.unknown\.subtitle/i),
+    ).toBeVisible();
+    expect(
+      screen.getByRole("button", {
+        name: /errors\.notFound\.unknown\.button/i,
+      }),
+    ).toBeVisible();
   });
 
   it("renders error page", async () => {
@@ -35,7 +41,7 @@ describe("Root", () => {
     const { history } = renderRoute("/missing");
 
     const goHomeButton = await screen.findByRole("button", {
-      name: /go to home/i,
+      name: /errors\.notFound\.unknown\.button/i,
     });
 
     await user.click(goHomeButton);

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Route } from "../../routes/profiles.$name";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { CardPanel } from "../../components/common/card-panel";
@@ -8,6 +9,7 @@ import { BreadcrumbItemLink } from "../../components/common/breadcrumb-item-link
 import { profileQueryOptions } from "../../options/profiles/profile-query-options";
 
 export function Profile() {
+  const { t } = useTranslation();
   const { name } = Route.useParams();
   const { readOnly } = Route.useSearch();
   const {
@@ -33,7 +35,7 @@ export function Profile() {
                           activeOptions={{ exact: true }}
                           to="/profiles"
                         >
-                          Profiles
+                          {t("profile.profiles")}
                         </BreadcrumbItemLink>
                         <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                       </Breadcrumb>

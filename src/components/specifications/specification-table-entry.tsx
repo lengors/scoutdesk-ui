@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Placeholder } from "react-bootstrap";
-import { capitalize } from "../../utils/string";
+import { useTranslation } from "react-i18next";
 import { CopyButton } from "../common/copy-button";
 import { TooltipButtonLink } from "../common/tooltip-button-link";
 import { userQueryOptions } from "../../options/users/user-query-options";
@@ -25,6 +25,7 @@ export interface SpecificationTableEntryProps {
 export function SpecificationTableEntry({
   name,
 }: SpecificationTableEntryProps) {
+  const { t } = useTranslation();
   const {
     data: { username: owner },
   } = useSuspenseQuery(userQueryOptions);
@@ -68,28 +69,35 @@ export function SpecificationTableEntry({
               params={{ name }}
               size="sm"
               to="/specifications/$name"
-              tooltip="View specification"
+              tooltip={t("specification.view")}
               variant="outline-info"
             >
               <InfoCircle />
             </TooltipButtonLink>
             <ConfirmationModalButton
-              message={`Are you sure you want to ${action} the specification "${name}"?`}
+              message={t("specification.actionConfirm", {
+                action: t(`specification.${action}`),
+                name,
+              })}
               mutation={updateMutation}
               size="sm"
-              title={`${capitalize(action)} specification`}
-              tooltip={`${capitalize(action)}  this specification`}
+              title={t("specification.actionTitle", {
+                action: t(`specification.${action}`),
+              })}
+              tooltip={t("specification.actionTooltip", {
+                action: t(`specification.${action}`),
+              })}
               variables={{ action, name } as const}
               variant="outline-warning"
             >
               {action === "archive" ? <ArchiveFill /> : <CheckSquareFill />}
             </ConfirmationModalButton>
             <ConfirmationModalButton
-              message={`Are you sure you want to delete the specification "${name}"?`}
+              message={t("specification.deleteConfirm", { name })}
               mutation={deleteMutation}
               size="sm"
-              title="Delete specification"
-              tooltip="Delete this specification"
+              title={t("specification.deleteTitle")}
+              tooltip={t("specification.deleteTooltip")}
               variables={name}
               variant="outline-danger"
             >

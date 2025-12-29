@@ -1,7 +1,8 @@
 import type { ScraperEntryStock } from "../../models/scrapers/scraper-entry-stock";
 
 import { useMemo } from "react";
-import { capitalize } from "../../utils/string";
+import { capitalize } from "../../utils/text";
+import { useTranslation } from "react-i18next";
 import { Badge, Carousel } from "react-bootstrap";
 import { CalendarRange } from "react-bootstrap-icons";
 import { useThemeContext } from "../../hooks/use-theme-context";
@@ -13,6 +14,7 @@ export interface ScraperStockListProps {
 }
 
 export function ScraperStockList({ stocks }: ScraperStockListProps) {
+  const { i18n } = useTranslation();
   const { theme } = useThemeContext();
 
   const parsedStocks = useMemo(
@@ -37,6 +39,7 @@ export function ScraperStockList({ stocks }: ScraperStockListProps) {
 
         if ("value" in deliveringOn) {
           const relative = deliveringOn.value.toRelativeCalendar({
+            locale: i18n.language,
             unit: deliveringOn.grain,
           });
           return {
@@ -47,9 +50,11 @@ export function ScraperStockList({ stocks }: ScraperStockListProps) {
         }
 
         const fromRelative = deliveringOn.from.value.toRelativeCalendar({
+          locale: i18n.language,
           unit: deliveringOn.from.grain,
         });
         const toRelative = deliveringOn.to.value.toRelativeCalendar({
+          locale: i18n.language,
           unit: deliveringOn.to.grain,
         });
 
@@ -84,7 +89,7 @@ export function ScraperStockList({ stocks }: ScraperStockListProps) {
           },
         } as const;
       }),
-    [stocks],
+    [i18n, stocks],
   );
   return (
     <Carousel

@@ -1,5 +1,6 @@
 import { sleep } from "../../utils/time";
 import { isEmpty } from "../../utils/common";
+import { useTranslation } from "react-i18next";
 import { Fragment, useMemo, useRef, useState } from "react";
 import { useThemeContext } from "../../hooks/use-theme-context";
 import { Clipboard, ClipboardCheck } from "react-bootstrap-icons";
@@ -20,6 +21,7 @@ export function CopyButton({
   variant,
   ...props
 }: CopyButtonProps) {
+  const { t } = useTranslation();
   const { theme } = useThemeContext();
   const [copied, setCopied] = useState(false);
   const content = useMemo(() => value ?? children, [children, value]);
@@ -52,7 +54,7 @@ export function CopyButton({
         className={className ?? (children !== undefined ? "me-2" : undefined)}
         onClick={copyToClipboard}
         placement={placement ?? "auto-start"}
-        tooltip="Copy to clipboard"
+        tooltip={t("common.copy")}
         trigger={trigger ?? ["focus", "hover"]}
         variant={variant ?? theme}
         disabled={disabled || contentIsEmpty}

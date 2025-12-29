@@ -1,5 +1,6 @@
 import type { ScraperUnownedProfile } from "../../models/profiles/scraper-unowned-profile";
 
+import { Translation } from "react-i18next";
 import { mutationOptions } from "@tanstack/react-query";
 import { SCRAPERS_KEY } from "../scrapers/scraper-keys";
 import { profileKey, PROFILES_KEY } from "./profile-keys";
@@ -25,10 +26,15 @@ export const deleteProfileMutationOptions = mutationOptions({
     });
   },
   ...mutationErrorOptions({
-    title: (_, name) =>
-      name !== undefined
-        ? `Error while deleting profile ${name}`
-        : "Error while deleting profiles",
+    title: (_, name) => (
+      <Translation>
+        {(t) =>
+          name !== undefined
+            ? t("errors.profile.delete", { name })
+            : t("errors.profile.deleteBatch")
+        }
+      </Translation>
+    ),
   }),
 });
 
@@ -47,7 +53,7 @@ export const saveProfileMutationOptions = mutationOptions({
   },
   ...mutationErrorOptions({
     skipErrorCheck: false,
-    title: "Error while saving profile",
+    title: <Translation>{(t) => t("errors.profile.save")}</Translation>,
   }),
 });
 
@@ -70,6 +76,6 @@ export const updateProfileMutationOptions = mutationOptions({
     });
   },
   ...mutationErrorOptions({
-    title: "Error while updating profile",
+    title: <Translation>{(t) => t("errors.profile.update")}</Translation>,
   }),
 });

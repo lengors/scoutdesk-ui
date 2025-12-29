@@ -2,6 +2,7 @@ import type {
   DefaultError,
   MutationFunctionContext,
 } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 import { HttpError } from "../../models/http/http-error";
 
@@ -14,13 +15,13 @@ export const mutationErrorOptions = <
 }: {
   readonly skipErrorCheck?: boolean;
   readonly title:
-    | string
+    | NonNullable<ReactNode>
     | ((
         error: DefaultError,
         variables: TVariables,
         result: TOnMutateResult | undefined,
         context: MutationFunctionContext,
-      ) => string);
+      ) => NonNullable<ReactNode>);
 }) =>
   ({
     onError: (

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Trash3Fill } from "react-bootstrap-icons";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { CardPanel } from "../../components/common/card-panel";
@@ -9,6 +10,7 @@ import { ConfirmationModalButton } from "../../components/common/confirmation-mo
 import { deleteProfileMutationOptions } from "../../options/profiles/profile-mutation-options";
 
 export function Profiles() {
+  const { t } = useTranslation();
   const { data } = useSuspenseQuery(profilesQueryOptions);
   const deleteMutation = useMutation(deleteProfileMutationOptions);
 
@@ -36,14 +38,16 @@ export function Profiles() {
                 <Row className="g-3">
                   <Col xs={12}>
                     <Card.Title className="align-self-center d-flex mb-0 pb-3">
-                      <span className="flex-grow-1 fs-3 h3 mb-0">Profiles</span>
+                      <span className="flex-grow-1 fs-3 h3 mb-0">
+                        {t("profile.profiles")}
+                      </span>
                       <ConfirmationModalButton
                         disabled={(data?.length ?? 0) === 0}
-                        message="Are you sure you want to delete all profiles?"
+                        message={t("profile.deleteAllConfirm")}
                         mutation={deleteMutation}
                         size="sm"
-                        title="Delete profiles"
-                        tooltip="Delete all profiles"
+                        title={t("profile.deleteAllTitle")}
+                        tooltip={t("profile.deleteAllTooltip")}
                         variables={undefined}
                         variant="outline-danger"
                       >

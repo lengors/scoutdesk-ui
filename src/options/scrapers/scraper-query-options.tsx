@@ -7,10 +7,11 @@ import {
   type QueryMeta,
 } from "@tanstack/react-query";
 import { DateTime } from "luxon";
+import { Translation } from "react-i18next";
 import { scrapersKey } from "./scraper-keys";
 import { scrap } from "../../services/scrapers/scraper-service";
 
-export const scrapOptions = <TData>(
+export const scrapOptions = <TData,>(
   searchTerm: string,
   profiles: ReadonlyArray<string>,
   {
@@ -52,29 +53,61 @@ export const scrapOptions = <TData>(
                     : `${entry.error}`,
                 tag: "parse_error",
               },
-              title: "Error parsing scraper entry",
+              title: (
+                <Translation>{(t) => t("errors.scraper.parse")}</Translation>
+              ),
             });
           } else if ("code" in entry.value) {
+            const handlerName = entry.value.handlerName;
             meta?.notificationStack?.pushNotification({
               level: "error",
               message: {
                 message: entry.value.message,
                 subject:
-                  entry.value.handlerName === undefined
-                    ? undefined
-                    : `Handler: ${entry.value.handlerName}`,
+                  handlerName === undefined ? undefined : (
+                    <Translation>
+                      {(t) =>
+                        t("errors.scraper.handler", { name: handlerName })
+                      }
+                    </Translation>
+                  ),
                 tag: entry.value.code,
               },
-              title: `Error on "${entry.value.specificationName}"`,
+              title: (
+                <Translation>
+                  {(t) =>
+                    t("errors.scraper.on", {
+                      name: entry.value.specificationName,
+                    })
+                  }
+                </Translation>
+              ),
             });
           } else if (entry.value.price.unit !== "EUR") {
+            const priceUnit = entry.value.price.unit;
             meta?.notificationStack?.pushNotification({
               level: "warning",
               message: {
-                message: `Price is in ${entry.value.price.unit}, support EUR only.`,
+                message: (
+                  <Translation>
+                    {(t) =>
+                      t("errors.scraper.currency.message", {
+                        unit: priceUnit,
+                      })
+                    }
+                  </Translation>
+                ),
                 tag: "unsupported_currency",
               },
-              title: `Unexpected currency on "${entry.value.specificationName}"`,
+              title: (
+                <Translation>
+                  {(t) =>
+                    t("errors.scraper.currency.title", {
+                      name: entry.value.specificationName,
+                    })
+                  }
+                </Translation>
+              ),
             });
           } else {
             const { stocks, ...rest } = entry.value;

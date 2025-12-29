@@ -3,6 +3,7 @@ import type { ErrorMessage } from "../../models/errors/error-message";
 import type { AnyRouter, ToPathOption } from "@tanstack/react-router";
 
 import { ButtonLink } from "./button-link";
+import { useTranslation } from "react-i18next";
 import { ErrorRenderer } from "./error-renderer";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
@@ -40,6 +41,8 @@ export function ErrorIndicator<
   title,
   ...props
 }: ErrorIndicatorProps<TRouter, TFrom, TTo>) {
+  const { t } = useTranslation();
+
   return (
     <Container className="align-content-center align-self-center flex-fill">
       <Row className="g-3">
@@ -76,7 +79,7 @@ export function ErrorIndicator<
                 size="lg"
                 variant="outline-secondary"
               >
-                Go Back
+                {t("common.back")}
               </Button>
             </Col>
             <Col />

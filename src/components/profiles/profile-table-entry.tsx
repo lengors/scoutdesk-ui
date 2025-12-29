@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Placeholder } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { CopyButton } from "../common/copy-button";
 import { TooltipButtonLink } from "../common/tooltip-button-link";
 import { userQueryOptions } from "../../options/users/user-query-options";
@@ -14,6 +15,7 @@ export interface ProfileTableEntryProps {
 }
 
 export function ProfileTableEntry({ name }: ProfileTableEntryProps) {
+  const { t } = useTranslation();
   const {
     data: { username: owner },
   } = useSuspenseQuery(userQueryOptions);
@@ -59,7 +61,7 @@ export function ProfileTableEntry({ name }: ProfileTableEntryProps) {
               params={{ name }}
               size="sm"
               to="/profiles/$name"
-              tooltip="View profile"
+              tooltip={t("profile.view")}
               variant="outline-info"
             >
               <InfoCircle />
@@ -67,7 +69,7 @@ export function ProfileTableEntry({ name }: ProfileTableEntryProps) {
             <TooltipButtonLink
               params={{ name: data.name }}
               to="/profiles/$name"
-              tooltip="Edit profile"
+              tooltip={t("profile.edit")}
               search={{ readOnly: false }}
               size="sm"
               variant="outline-warning"
@@ -75,11 +77,11 @@ export function ProfileTableEntry({ name }: ProfileTableEntryProps) {
               <PencilSquare />
             </TooltipButtonLink>
             <ConfirmationModalButton
-              message={`Are you sure you want to delete the profile "${name}"?`}
+              message={t("profile.deleteConfirm", { name })}
               mutation={deleteMutation}
               size="sm"
-              title="Delete profile"
-              tooltip="Delete this profile"
+              title={t("profile.deleteTitle")}
+              tooltip={t("profile.deleteTooltip")}
               variables={name}
               variant="outline-danger"
             >

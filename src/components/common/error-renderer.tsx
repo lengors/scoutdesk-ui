@@ -2,6 +2,7 @@ import type { ErrorMessage } from "../../models/errors/error-message";
 import type { NotificationLevel } from "../../models/notifications/notification-level";
 
 import { Badge } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { HttpError } from "../../models/http/http-error";
 
 export interface ErrorRendererProps {
@@ -10,7 +11,14 @@ export interface ErrorRendererProps {
 }
 
 export function ErrorRenderer({ level, message }: ErrorRendererProps) {
-  if (typeof message === "string") {
+  const { t } = useTranslation();
+
+  if (
+    typeof message !== "object" ||
+    "key" in message ||
+    Symbol.iterator in message ||
+    message instanceof Promise
+  ) {
     return message;
   }
 
@@ -21,7 +29,7 @@ export function ErrorRenderer({ level, message }: ErrorRendererProps) {
   if (!("status" in message)) {
     return (
       <div className="d-flex flex-column gap-2">
-        <div>{message.message ?? "An unknown error occurred."}</div>
+        <div>{message.message ?? t("common.unknownError")}</div>
 
         {(message.subject !== undefined || message.tag !== undefined) && (
           <div className="align-items-center d-flex justify-content-between">

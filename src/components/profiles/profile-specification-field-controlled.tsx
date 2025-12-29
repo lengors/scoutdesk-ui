@@ -1,6 +1,7 @@
 import type { ScraperUnownedProfile } from "../../models/profiles/scraper-unowned-profile";
 
 import { Fragment, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Dropdown, Form } from "react-bootstrap";
 import { FieldControlled } from "../common/field-controlled";
@@ -21,6 +22,7 @@ export function ProfileSpecificationFieldControlled({
   queryControl,
   readOnly,
 }: ProfileSpecificationFieldControlledProps) {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({
     ...sharedSpecificationsQueryOptions(query),
     enabled: readOnly !== true,
@@ -53,10 +55,10 @@ export function ProfileSpecificationFieldControlled({
       control={control}
       defaultValue={name.trim().length > 0 ? `${owner}-${name}` : undefined}
       disabled={readOnly === true ? true : undefined}
-      label="Profile's specification"
+      label={t("profile.specification")}
       name="specification"
       options={options}
-      placeholder="Select specification"
+      placeholder={t("profile.selectSpecification")}
       readOnly={readOnly}
       type="select"
       variant="outline-secondary"
@@ -71,7 +73,7 @@ export function ProfileSpecificationFieldControlled({
                 {...field}
                 as={Form.Control}
                 onClick={(event) => event.stopPropagation()}
-                placeholder="Search specifications"
+                placeholder={t("profile.searchSpecifications")}
               />
             );
 

@@ -1,3 +1,4 @@
+import { Translation } from "react-i18next";
 import { mutationOptions } from "@tanstack/react-query";
 import { mutationErrorOptions } from "../common/mutation-error-options";
 import { specificationKey, SPECIFICATIONS_KEY } from "./specification-keys";
@@ -20,9 +21,15 @@ export const deleteSpecificationMutationOptions = mutationOptions({
     }),
   ...mutationErrorOptions({
     title: (_, name) =>
-      name !== undefined
-        ? `Error while deleting specification ${name}`
-        : "Error while deleting specifications",
+      name !== undefined ? (
+        <Translation>
+          {(t) => t("errors.specification.delete", { name })}
+        </Translation>
+      ) : (
+        <Translation>
+          {(t) => t("errors.specification.deleteBatch")}
+        </Translation>
+      ),
   }),
 });
 
@@ -40,8 +47,9 @@ export const updateSpecificationMutationOptions = mutationOptions({
       queryKey: specificationKey({ name, owner }),
     }),
   ...mutationErrorOptions({
-    title: (_0, { action }) =>
-      `Error while ${action === "activate" ? "activating" : "archiving"} specification`,
+    title: (_0, { action }) => (
+      <Translation>{(t) => t(`errors.specification.${action}`)}</Translation>
+    ),
   }),
 });
 
@@ -55,6 +63,6 @@ export const uploadSpecificationMutationOptions = mutationOptions({
     }),
   ...mutationErrorOptions({
     skipErrorCheck: false,
-    title: "Error while uploading specification",
+    title: <Translation>{(t) => t("errors.specification.upload")}</Translation>,
   }),
 });

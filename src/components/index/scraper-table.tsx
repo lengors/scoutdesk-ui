@@ -3,6 +3,7 @@ import type { ArrayLike } from "../../collections/array-like";
 import type { ScraperEntry } from "../../models/scrapers/scraper-entry";
 
 import { Table } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { ScraperTableEntry } from "./scraper-table-entry";
 import { identity, type Identifiable } from "../../models/common/identifiable";
 
@@ -11,6 +12,8 @@ export interface ScraperTableProps {
 }
 
 export function ScraperTable({ entries }: ScraperTableProps) {
+  const { t } = useTranslation();
+
   return (
     <Table
       className="align-middle mb-0 text-center text-nowrap"
@@ -20,11 +23,11 @@ export function ScraperTable({ entries }: ScraperTableProps) {
     >
       <thead>
         <tr>
-          <th style={{ width: 0 }}>Picture</th>
-          <th className="text-start">Description</th>
-          <th style={{ width: 0 }}>Stock</th>
-          <th style={{ width: 0 }}>Price</th>
-          <th style={{ width: 0 }}>Website</th>
+          <th style={{ width: 0 }}>{t("scraper.picture")}</th>
+          <th className="text-start">{t("scraper.description")}</th>
+          <th style={{ width: 0 }}>{t("scraper.stock")}</th>
+          <th style={{ width: 0 }}>{t("scraper.price")}</th>
+          <th style={{ width: 0 }}>{t("scraper.website")}</th>
         </tr>
       </thead>
       <tbody>

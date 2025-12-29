@@ -3,9 +3,10 @@ import type { ScraperEntry } from "../../models/scrapers/scraper-entry";
 
 import { ScraperForm } from "./scraper-form";
 import { List } from "react-bootstrap-icons";
+import { capitalize } from "../../utils/text";
 import { ScraperTable } from "./scraper-table";
+import { useTranslation } from "react-i18next";
 import { Paginated } from "../common/paginated";
-import { capitalize } from "../../utils/string";
 import { CardPanel } from "../common/card-panel";
 import { useQuery } from "@tanstack/react-query";
 import { StatusIndicator } from "../common/status-indicator";
@@ -40,6 +41,7 @@ export interface ScraperViewProps {
 }
 
 export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
+  const { t } = useTranslation();
   const toggleButtonId = useId();
   const [stateManager] = useState(() => new ScraperStateManager(20));
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -118,7 +120,7 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
               responsive="lg"
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Advanced Search</Offcanvas.Title>
+                <Offcanvas.Title>{t("scraper.advancedSearch")}</Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Container className="p-0" fluid>
@@ -127,12 +129,14 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
                       <Col xs={12}>
                         <Accordion alwaysOpen flush>
                           <Accordion.Item eventKey="0">
-                            <Accordion.Header>Brands</Accordion.Header>
+                            <Accordion.Header>
+                              {t("scraper.brands")}
+                            </Accordion.Header>
                             <Accordion.Body>
                               <Form.Group>
                                 <Form.Check
                                   checked={selectionMode === "all"}
-                                  label="All brands"
+                                  label={t("scraper.allBrands")}
                                   onChange={(event) =>
                                     stateManager.selectAll(
                                       event.target.checked ? "all" : "none",
@@ -164,13 +168,15 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
                             </Accordion.Body>
                           </Accordion.Item>
                           <Accordion.Item eventKey="1">
-                            <Accordion.Header>Sort by</Accordion.Header>
+                            <Accordion.Header>
+                              {t("scraper.sortBy")}
+                            </Accordion.Header>
                             <Accordion.Body>
                               <Form.Group>
-                                <Form.Label>Price</Form.Label>
+                                <Form.Label>{t("scraper.price")}</Form.Label>
                                 <Form.Check
                                   checked={entryDirection === "forward"}
-                                  label="Ascending price"
+                                  label={t("scraper.ascendingPrice")}
                                   onChange={() =>
                                     stateManager.sort("price.asc")
                                   }
@@ -179,7 +185,7 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
                                 />
                                 <Form.Check
                                   checked={entryDirection === "backward"}
-                                  label="Descending price"
+                                  label={t("scraper.descendingPrice")}
                                   onChange={() =>
                                     stateManager.sort("price.desc")
                                   }
@@ -224,7 +230,11 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
                 </Col>
                 {fetchStatus === "fetching" && (
                   <Col className="order-5" xs={12}>
-                    <ProgressBar animated now={100} label="Loading..." />
+                    <ProgressBar
+                      animated
+                      now={100}
+                      label={t("common.loading")}
+                    />
                   </Col>
                 )}
               </ScraperForm>
@@ -234,7 +244,9 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
                 <CardPanel>
                   <Row className="g-3">
                     <Col xs={12}>
-                      <StatusIndicator>No results found.</StatusIndicator>
+                      <StatusIndicator>
+                        {t("scraper.noResults")}
+                      </StatusIndicator>
                     </Col>
                   </Row>
                 </CardPanel>
