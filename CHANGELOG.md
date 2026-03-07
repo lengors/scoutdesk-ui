@@ -1,3 +1,9 @@
+# [v1.0.0-dev.5](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-03-07)
+
+## ✨ New Features
+
+- [`ff8b510`](https://github.com/lengors/scoutdesk-ui/commit/ff8b510) Add localization support
+
 # [v1.0.0-dev.4](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2025-12-28)
 
 ## ✨ New Features
