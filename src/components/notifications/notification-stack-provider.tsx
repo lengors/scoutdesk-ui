@@ -8,6 +8,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { CardPanel } from "../common/card-panel";
 import { Bell, Trash, X } from "react-bootstrap-icons";
 import { NotificationToast } from "./notification-toast";
@@ -25,6 +26,7 @@ export function NotificationStackProvider({
   children,
   notificationStack,
 }: NotificationStackProviderProps) {
+  const { t } = useTranslation();
   const [identifiableNotifications, setIdentifiableNotifications] = useState<
     ReadonlyArray<Identifiable<Notification>>
   >([]);
@@ -101,7 +103,7 @@ export function NotificationStackProvider({
                       className="pe-auto rounded-circle shadow"
                       onClick={() => setIdentifiableNotifications([])}
                       size="sm"
-                      tooltip="Clear all notifications"
+                      tooltip={t("common.clearNotifications")}
                       trigger={["focus", "hover"]}
                       variant="danger"
                     >
@@ -114,7 +116,7 @@ export function NotificationStackProvider({
                     className="align-items-center d-flex justify-content-center pe-auto position-relative rounded-circle shadow"
                     onClick={() => setShow((previous) => !previous)}
                     style={{ height: "50px", width: "50px" }}
-                    tooltip={show ? "Hide notifications" : "Show notifications"}
+                    tooltip={t("common.notifications", { context: `${show}` })}
                     trigger={["focus", "hover"]}
                     variant="primary"
                   >

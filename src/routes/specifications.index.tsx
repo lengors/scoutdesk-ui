@@ -1,6 +1,6 @@
 import { fetchQuery } from "../utils/query";
-import { PendingPanel } from "../pages/common/pending-panel";
 import { Specifications } from "../pages/specifications/specifications";
+import { SpecificationsPendingPanel } from "../pages/specifications/specifications-pending-panel";
 import { specificationsQueryOptions } from "../options/specifications/specification-query-options";
 
 export const Route = createFileRoute({
@@ -10,7 +10,5 @@ export const Route = createFileRoute({
   loader: async ({ context: { queryClient } }): Promise<void> => {
     return await fetchQuery(queryClient, specificationsQueryOptions);
   },
-  pendingComponent: () => (
-    <PendingPanel>Loading specifications...</PendingPanel>
-  ),
+  pendingComponent: SpecificationsPendingPanel,
 });

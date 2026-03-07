@@ -1,6 +1,6 @@
 import { fetchQuery } from "../utils/query";
 import { Profiles } from "../pages/profiles/profiles";
-import { PendingPanel } from "../pages/common/pending-panel";
+import { ProfilesPendingPanel } from "../pages/profiles/profiles-pending-panel";
 import { profilesQueryOptions } from "../options/profiles/profile-query-options";
 
 export const Route = createFileRoute({
@@ -10,5 +10,5 @@ export const Route = createFileRoute({
   loader: async ({ context: { queryClient } }): Promise<void> => {
     return await fetchQuery(queryClient, profilesQueryOptions);
   },
-  pendingComponent: () => <PendingPanel>Loading profiles...</PendingPanel>,
+  pendingComponent: ProfilesPendingPanel,
 });

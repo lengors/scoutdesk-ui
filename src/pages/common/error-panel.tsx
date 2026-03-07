@@ -1,5 +1,6 @@
 import type { ErrorMessage } from "../../models/errors/error-message";
 
+import { useTranslation } from "react-i18next";
 import { HttpError } from "../../models/http/http-error";
 import { ErrorIndicator } from "../../components/common/error-indicator";
 
@@ -8,9 +9,10 @@ export interface ErrorPanelProps {
 }
 
 export function ErrorPanel({ error }: ErrorPanelProps) {
+  const { t } = useTranslation();
   return (
     <ErrorIndicator
-      {...(typeof error !== "string" &&
+      {...(typeof error === "object" &&
       (!(error instanceof Error) || error instanceof HttpError) &&
       "status" in error
         ? { title: error.status }
@@ -18,7 +20,7 @@ export function ErrorPanel({ error }: ErrorPanelProps) {
       message={error}
       onClick={() => window.location.reload()}
     >
-      Refresh
+      {t("common.refresh")}
     </ErrorIndicator>
   );
 }

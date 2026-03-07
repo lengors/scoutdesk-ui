@@ -1,6 +1,7 @@
 import type { UseFormReturn } from "react-hook-form";
 
 import { Route } from "../../routes";
+import { useTranslation } from "react-i18next";
 import { useId, type ReactNode } from "react";
 import { CardPanel } from "../common/card-panel";
 import { Col, Form, Row } from "react-bootstrap";
@@ -23,6 +24,7 @@ export function ScraperForm({
     handleSubmit,
   },
 }: ScraperFormProps) {
+  const { t } = useTranslation();
   const submitButtonId = useId();
   const navigator = Route.useNavigate();
 
@@ -45,7 +47,7 @@ export function ScraperForm({
               <Col>
                 <FieldControlled
                   control={control}
-                  label="Search content"
+                  label={t("scraper.searchContent")}
                   name="query"
                   placeholder="2055516"
                   type="text"
@@ -66,7 +68,7 @@ export function ScraperForm({
                     id={submitButtonId}
                     isLoading={false}
                   >
-                    Search
+                    {t("scraper.search")}
                   </Form.Control>
                 </Form.Group>
               </Col>

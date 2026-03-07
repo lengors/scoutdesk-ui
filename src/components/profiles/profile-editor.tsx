@@ -2,6 +2,7 @@ import type { ScraperSpecificationRequirement } from "@lengors/protoscout-schema
 
 import { useWatch } from "react-hook-form";
 import { useForm } from "../../hooks/use-form";
+import { useTranslation } from "react-i18next";
 import { Col, Form, Row } from "react-bootstrap";
 import { Fragment, useEffect, useMemo } from "react";
 import { useDebounce } from "../../hooks/use-debounce";
@@ -42,6 +43,7 @@ export type ProfileEditorProps =
     };
 
 export function ProfileEditor({ name, readOnly }: ProfileEditorProps) {
+  const { t } = useTranslation();
   const {
     data: { username: owner },
   } = useSuspenseQuery(userQueryOptions);
@@ -126,9 +128,9 @@ export function ProfileEditor({ name, readOnly }: ProfileEditorProps) {
               <FieldControlled
                 control={control}
                 disabled={readOnly || name !== undefined}
-                label="Profile's name"
+                label={t("profile.name")}
                 name="name"
-                placeholder="Enter profile name"
+                placeholder={t("profile.enterName")}
                 readOnly={readOnly || name !== undefined}
                 type="text"
               />
@@ -143,7 +145,9 @@ export function ProfileEditor({ name, readOnly }: ProfileEditorProps) {
             </Col>
             {isLoading ? (
               <Col xs={12}>
-                <PendingIndicator>Loading requirements...</PendingIndicator>
+                <PendingIndicator>
+                  {t("profile.loadingRequirements")}
+                </PendingIndicator>
               </Col>
             ) : (
               requirements
@@ -160,9 +164,11 @@ export function ProfileEditor({ name, readOnly }: ProfileEditorProps) {
                     <FieldControlled
                       control={control}
                       disabled={readOnly}
-                      label={`Profile's "${requirementName}" input`}
+                      label={t("profile.inputLabel", { name: requirementName })}
                       name={`inputs.${requirementName}`}
-                      placeholder={`Enter "${requirementName}"`}
+                      placeholder={t("profile.inputPlaceholder", {
+                        name: requirementName,
+                      })}
                       readOnly={readOnly}
                       type={type}
                     />
@@ -180,7 +186,7 @@ export function ProfileEditor({ name, readOnly }: ProfileEditorProps) {
                   xs={12}
                 >
                   <SubmitButton className="w-100" disabled={isSubmitting}>
-                    Save profile
+                    {t("profile.save")}
                   </SubmitButton>
                 </Col>
               </Row>

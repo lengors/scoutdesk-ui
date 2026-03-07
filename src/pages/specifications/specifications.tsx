@@ -1,4 +1,5 @@
 import { useForm } from "../../hooks/use-form";
+import { useTranslation } from "react-i18next";
 import { Trash3Fill } from "react-bootstrap-icons";
 import { CardPanel } from "../../components/common/card-panel";
 import { Card, Col, Container, Form, Row } from "react-bootstrap";
@@ -14,6 +15,7 @@ import {
 } from "../../options/specifications/specification-mutation-options";
 
 export function Specifications() {
+  const { t } = useTranslation();
   const { data } = useSuspenseQuery(specificationsQueryOptions);
   const deleteMutation = useMutation(deleteSpecificationMutationOptions);
   const { mutateAsync } = useMutation(uploadSpecificationMutationOptions);
@@ -54,7 +56,7 @@ export function Specifications() {
                               <FieldControlled
                                 accept=".json, .yaml, .yml"
                                 control={control}
-                                label="Specification content"
+                                label={t("specification.content")}
                                 name="specification"
                                 type="file"
                               />
@@ -67,7 +69,7 @@ export function Specifications() {
                                 className="w-100"
                                 disabled={isSubmitting}
                               >
-                                Save specification
+                                {t("specification.save")}
                               </SubmitButton>
                             </Col>
                           </Row>
@@ -88,15 +90,15 @@ export function Specifications() {
                   <Col xs={12}>
                     <Card.Title className="align-self-center d-flex mb-0 pb-3">
                       <span className="flex-grow-1 fs-3 h3 mb-0">
-                        Specifications
+                        {t("specification.specifications")}
                       </span>
                       <ConfirmationModalButton
                         disabled={(data?.length ?? 0) === 0}
-                        message="Are you sure you want to delete all specifications?"
+                        message={t("specification.deleteAllConfirm")}
                         mutation={deleteMutation}
                         size="sm"
-                        title="Delete specifications"
-                        tooltip="Delete all specifications"
+                        title={t("specification.deleteAllTitle")}
+                        tooltip={t("specification.deleteAllTooltip")}
                         variables={undefined}
                         variant="outline-danger"
                       >

@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Route } from "../../routes/specifications.$name";
 import { CardPanel } from "../../components/common/card-panel";
@@ -17,6 +18,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import * as YAML from "yaml";
 
 export function Specification() {
+  const { t } = useTranslation();
   const { name } = Route.useParams();
   const { theme } = useThemeContext();
   const {
@@ -53,7 +55,7 @@ export function Specification() {
                       role="button"
                       variant="outline-primary"
                     >
-                      Download
+                      {t("specification.download")}
                     </Button>
                   </Col>
                 </Row>
@@ -70,7 +72,7 @@ export function Specification() {
                           activeOptions={{ exact: true }}
                           to="/specifications"
                         >
-                          Specifications
+                          {t("specification.specifications")}
                         </BreadcrumbItemLink>
                         <Breadcrumb.Item active>{name}</Breadcrumb.Item>
                       </Breadcrumb>

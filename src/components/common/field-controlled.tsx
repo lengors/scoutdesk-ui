@@ -2,6 +2,7 @@ import type { ButtonVariant } from "react-bootstrap/types";
 
 import { Select } from "./select";
 import { CopyButton } from "./copy-button";
+import { useTranslation } from "react-i18next";
 import { TooltipButton } from "./tooltip-button";
 import { Eye, EyeSlash } from "react-bootstrap-icons";
 import { Form, InputGroup, type FormControlProps } from "react-bootstrap";
@@ -88,6 +89,7 @@ export function FieldControlled<
     fieldState: { error },
     formState: { isSubmitted, submitCount, errors },
   } = useController({ control, name });
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
   const [fieldError, setFieldError] = useState(error);
@@ -234,7 +236,9 @@ export function FieldControlled<
         {type === "password" && (
           <TooltipButton
             onClick={() => setShowPassword((previous) => !previous)}
-            tooltip={showPassword ? "Hide password" : "Show password"}
+            tooltip={t("common.password", {
+              context: `${showPassword}`,
+            })}
             variant="outline-secondary"
           >
             {showPassword ? <EyeSlash /> : <Eye />}
@@ -255,7 +259,7 @@ export function FieldControlled<
                   ))}
                 </ul>
               ) : (
-                "Looks good!"
+                t("common.good")
               )}
             </Form.Control.Feedback>
           )}

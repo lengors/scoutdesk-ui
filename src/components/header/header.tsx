@@ -6,6 +6,7 @@ import {
 } from "react-bootstrap-icons";
 import { Fragment } from "react";
 import { HeaderLink } from "./header-link";
+import { useTranslation } from "react-i18next";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { TooltipButton } from "../common/tooltip-button";
 import { useThemeContext } from "../../hooks/use-theme-context";
@@ -20,6 +21,7 @@ export function Header() {
   const themeContext = useThemeContext();
   const { data } = useSuspenseQuery(userQueryOptions);
   const { theme, themePreference, togglePreference } = themeContext;
+  const { t } = useTranslation();
 
   return (
     <Navbar className="shadow" expand="lg">
@@ -46,14 +48,16 @@ export function Header() {
           <Offcanvas.Body className="d-flex flex-column flex-lg-row">
             <Nav className="flex-grow-1 justify-content-start pe-3">
               <Nav.Item className="align-items-center d-flex">
-                <HeaderLink to="/">Home</HeaderLink>
+                <HeaderLink to="/">{t("header.home")}</HeaderLink>
               </Nav.Item>
               <Nav.Item className="align-items-center d-flex">
-                <HeaderLink to="/profiles">Profiles</HeaderLink>
+                <HeaderLink to="/profiles">{t("header.profiles")}</HeaderLink>
               </Nav.Item>
               {data.roles.some((role) => role !== "user") && (
                 <Nav.Item className="align-items-center d-flex">
-                  <HeaderLink to="/specifications">Specifications</HeaderLink>
+                  <HeaderLink to="/specifications">
+                    {t("header.specifications")}
+                  </HeaderLink>
                 </Nav.Item>
               )}
             </Nav>
@@ -63,12 +67,12 @@ export function Header() {
                   <Col />
                   <Col xs="auto">
                     <TooltipButton
-                      aria-label="Toggle theme"
+                      aria-label={t("header.toggleTheme")}
                       className="rounded-circle"
                       onClick={togglePreference}
                       placement="auto-start"
                       size="sm"
-                      tooltip="Toggle theme"
+                      tooltip={t("header.toggleTheme")}
                       trigger={["focus", "hover"]}
                       variant={theme}
                     >
@@ -83,11 +87,11 @@ export function Header() {
                   </Col>
                   <Col xs="auto">
                     <TooltipButton
-                      aria-label="Back to SSO"
+                      aria-label={t("header.backToSSO")}
                       className="rounded-circle"
                       placement="auto-start"
                       size="sm"
-                      tooltip="Back to SSO"
+                      tooltip={t("header.backToSSO")}
                       trigger={["focus", "hover"]}
                       variant={theme}
                     >
@@ -96,12 +100,16 @@ export function Header() {
                   </Col>
                   <Col xs="auto">
                     <TooltipButton
-                      aria-label="Open profile menu"
+                      aria-label={t("header.openProfileMenu")}
                       className="profile rounded-circle"
                       placement="auto-start"
-                      style={{
-                        backgroundImage: `url(${data?.avatar})`,
-                      }}
+                      style={
+                        data?.avatar === undefined
+                          ? undefined
+                          : {
+                              backgroundImage: `url(${data.avatar})`,
+                            }
+                      }
                       tooltip={
                         <div className="p-1">
                           <Row>

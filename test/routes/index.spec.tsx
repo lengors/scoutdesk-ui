@@ -35,12 +35,12 @@ describe("routes/index", () => {
     renderRoute("/");
 
     const toggleButton = await screen.findByRole("button", {
-      name: /toggle theme/i,
+      name: /toggleTheme/i,
     });
     await user.hover(toggleButton);
 
     expect(await screen.findByRole("tooltip")).toHaveTextContent(
-      /toggle theme/i,
+      /toggleTheme/i,
     );
   });
 
@@ -51,7 +51,7 @@ describe("routes/index", () => {
     renderRoute("/");
 
     const profileButton = await screen.findByRole("button", {
-      name: /open profile menu/i,
+      name: /openProfileMenu/i,
     });
     await user.click(profileButton);
 
@@ -66,7 +66,7 @@ describe("routes/index", () => {
     renderRoute("/");
 
     let toggleButton = await screen.findByRole("button", {
-      name: /toggle theme/i,
+      name: /toggleTheme/i,
     });
     await user.click(toggleButton);
     await waitFor(() =>
@@ -77,7 +77,7 @@ describe("routes/index", () => {
     );
 
     toggleButton = await screen.findByRole("button", {
-      name: /toggle theme/i,
+      name: /toggleTheme/i,
     });
 
     await user.click(toggleButton);

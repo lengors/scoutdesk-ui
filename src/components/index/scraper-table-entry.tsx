@@ -1,7 +1,7 @@
 import type { ScraperEntry } from "../../models/scrapers/scraper-entry";
 
+import { capitalize } from "../../utils/text";
 import { Image, Table } from "react-bootstrap";
-import { capitalize } from "../../utils/string";
 import { ScraperMetric } from "./scraper-metric";
 import { ScraperStockList } from "./scraper-stock-list";
 import { OverlayTriggerTooltip } from "../common/overlay-trigger-tooltip";
