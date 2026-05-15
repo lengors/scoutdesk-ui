@@ -10,6 +10,8 @@ import { useTranslation } from "react-i18next";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { TooltipButton } from "../common/tooltip-button";
 import { useThemeContext } from "../../hooks/use-theme-context";
+import { TooltipButtonLink } from "../common/tooltip-button-link";
+import { ENVIRONMENT_CONFIG } from "../../configs/environment-config";
 import { userQueryOptions } from "../../options/users/user-query-options";
 import { Col, Container, Nav, Navbar, Offcanvas, Row } from "react-bootstrap";
 
@@ -86,17 +88,18 @@ export function Header() {
                     </TooltipButton>
                   </Col>
                   <Col xs="auto">
-                    <TooltipButton
+                    <TooltipButtonLink
                       aria-label={t("header.backToSSO")}
                       className="rounded-circle"
                       placement="auto-start"
                       size="sm"
+                      to={ENVIRONMENT_CONFIG.SSO_URL}
                       tooltip={t("header.backToSSO")}
                       trigger={["focus", "hover"]}
                       variant={theme}
                     >
                       <BoxArrowLeft />
-                    </TooltipButton>
+                    </TooltipButtonLink>
                   </Col>
                   <Col xs="auto">
                     <TooltipButton
