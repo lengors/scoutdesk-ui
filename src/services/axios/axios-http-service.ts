@@ -31,6 +31,8 @@ export class AxiosHttpService implements HttpService {
             )}`,
           );
         }
+
+        return Promise.reject(error);
       },
     );
   }
