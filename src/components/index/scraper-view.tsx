@@ -112,7 +112,7 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
     <Container fluid="lg">
       <Row className="align-self-start flex-grow-1 g-3 mb-3">
         <Col xs={12} />
-        <Col className="d-none d-lg-block" lg={4}>
+        <Col className="d-none d-lg-block" lg={4} xxl={3}>
           <CardPanel>
             <Offcanvas
               onHide={() => setShowAdvancedSearch(false)}
@@ -204,7 +204,7 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
             </Offcanvas>
           </CardPanel>
         </Col>
-        <Col xs={12} lg={8}>
+        <Col xs={12} lg={8} xxl={9}>
           <Row className="g-3">
             <Col xs={12}>
               <ScraperForm form={queryForm}>
