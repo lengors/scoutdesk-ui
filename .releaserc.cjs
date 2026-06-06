@@ -10,12 +10,14 @@ module.exports = {
     { name: "dev", prerelease: true },
     {
       name: "feat/**",
+      channel: "preview",
       prerelease:
-        "preview.${name.replace(/^feat\\//, '').replace(/\\//g, '-')}",
+        "preview-${name.replace(/^feat\\//, '').replace(/\\//g, '-')}",
     },
     {
       name: "bug/**",
-      prerelease: "preview.${name.replace(/^bug\\//, '').replace(/\\//g, '-')}",
+      channel: "preview",
+      prerelease: "preview-${name.replace(/^bug\\//, '').replace(/\\//g, '-')}",
     },
   ],
 
