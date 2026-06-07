@@ -3,6 +3,7 @@ const branch = process.env.GITHUB_REF_NAME;
 const isPreview = branch.startsWith("feat/") || branch.startsWith("bug/");
 
 module.exports = {
+  tagFormat: "${version}",
   branches: [
     "main",
     { name: "beta", prerelease: true },
