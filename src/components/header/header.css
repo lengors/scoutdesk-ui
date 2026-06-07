@@ -1,0 +1,25 @@
+.btn.profile {
+  --profile-width: 32px;
+  --profile-height: 32px;
+  background-position: center !important;
+  background-size: contain !important;
+  height: var(--profile-height) !important;
+  width: var(--profile-width) !important;
+}
+
+.btn.profile::before {
+  background-color: transparent;
+  border-radius: 50%;
+  content: "";
+  height: var(--profile-height);
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s;
+  width: var(--profile-width);
+  z-index: 1;
+}
+
+.btn.profile:hover::before {
+  background-color: rgba(108, 117, 125, 0.25);
+}
