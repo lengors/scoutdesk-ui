@@ -33,7 +33,7 @@ jobs:
         run: npm ci
       - name: Run coverage tests
         run: npm run test:coverage
-      - name: SonarCloud scane
+      - name: SonarCloud scan
         if: success() || failure()
         uses: sonarsource/sonarcloud-github-action@master
         env:
