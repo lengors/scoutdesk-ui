@@ -1,24 +1,17 @@
 import type { QueryClient } from "@tanstack/react-query";
 
 import { App } from "../app";
-import { Fragment } from "react";
 import { fetchQuery } from "../utils/query";
-import { ErrorPanel } from "../pages/common/error-panel";
+import { ErrorRootPanel } from "../pages/common/error-root-panel";
 import { createRootRouteWithContext } from "@tanstack/react-router";
 import { PendingUserPanel } from "../pages/common/pending-user-panel";
 import { userQueryOptions } from "../options/users/user-query-options";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   component: App,
-  errorComponent: ({ error }) => (
-    <Fragment>
-      <ErrorPanel error={error} />
-      <TanStackRouterDevtools />
-    </Fragment>
-  ),
+  errorComponent: ErrorRootPanel,
   loader: async ({ context: { queryClient } }) =>
     await fetchQuery(queryClient, userQueryOptions),
   pendingComponent: PendingUserPanel,

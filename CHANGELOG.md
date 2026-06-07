@@ -1,3 +1,31 @@
+# [v1.1.0-dev.1](https://github.com/lengors/scoutdesk-ui/compare/1.0.0...1.1.0-dev.1) (2026-06-07)
+
+## ✨ New Features
+
+- [`493cdbf`](https://github.com/lengors/scoutdesk-ui/commit/493cdbf) Add proper message for auth challenge redirect
+
+# v1.0.0 (2026-06-07)
+
+## ✨ New Features
+
+- [`d539614`](https://github.com/lengors/scoutdesk-ui/commit/d539614) Add empty home page
+- [`6a3ad89`](https://github.com/lengors/scoutdesk-ui/commit/6a3ad89) Add specification page
+- [`a653634`](https://github.com/lengors/scoutdesk-ui/commit/a653634) Add profile page
+- [`fcde0cb`](https://github.com/lengors/scoutdesk-ui/commit/fcde0cb) Add content to home page
+- [`ff8b510`](https://github.com/lengors/scoutdesk-ui/commit/ff8b510) Add localization support
+- [`ad0edfb`](https://github.com/lengors/scoutdesk-ui/commit/ad0edfb) Add support for authentication challenge
+
+# v1.0.0-beta.1 (2026-06-07)
+
+## ✨ New Features
+
+- [`d539614`](https://github.com/lengors/scoutdesk-ui/commit/d539614) Add empty home page
+- [`6a3ad89`](https://github.com/lengors/scoutdesk-ui/commit/6a3ad89) Add specification page
+- [`a653634`](https://github.com/lengors/scoutdesk-ui/commit/a653634) Add profile page
+- [`fcde0cb`](https://github.com/lengors/scoutdesk-ui/commit/fcde0cb) Add content to home page
+- [`ff8b510`](https://github.com/lengors/scoutdesk-ui/commit/ff8b510) Add localization support
+- [`ad0edfb`](https://github.com/lengors/scoutdesk-ui/commit/ad0edfb) Add support for authentication challenge
+
 # v1.0.0-alpha.1 (2026-06-07)
 
 ## ✨ New Features
