@@ -2,6 +2,7 @@ import type { ScraperEntry } from "../../models/scrapers/scraper-entry";
 
 import { capitalize } from "../../utils/text";
 import { Image, Table } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { ScraperMetric } from "./scraper-metric";
 import { ScraperStockList } from "./scraper-stock-list";
 import { OverlayTriggerTooltip } from "../common/overlay-trigger-tooltip";
@@ -32,6 +33,7 @@ export function ScraperTableEntry({
     details,
   },
 }: ScraperTableEntryProps) {
+  const { t } = useTranslation();
   return (
     <tr>
       <td>
@@ -118,7 +120,11 @@ export function ScraperTableEntry({
       <td>
         {(stocks?.length ?? 0) > 0 && <ScraperStockList stocks={stocks} />}
       </td>
-      <td>{`€${price.amount}`}</td>
+      <td>
+        {Math.abs(price.amount) < Number.EPSILON
+          ? t("scraper.notApplicable")
+          : `€${price.amount}`}
+      </td>
       <td>
         <a href={url} rel="noopener noreferrer" target="_blank">
           {capitalize(specificationName)}

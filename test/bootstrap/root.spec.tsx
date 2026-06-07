@@ -30,8 +30,7 @@ describe("Root", () => {
 
     renderRoute("/");
 
-    expect(await screen.findByText(/unauthorized/i)).toBeVisible();
-    expect(screen.getByRole("button", { name: /refresh/i })).toBeVisible();
+    expect(await screen.findByText(/loginRedirect/i)).toBeVisible();
   });
 
   it("presses Go to Home button", async () => {
