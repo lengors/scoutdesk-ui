@@ -1,0 +1,130 @@
+{
+  "common": {
+    "actions": "Actions",
+    "back": "Go Back",
+    "cancel": "Cancel",
+    "clearNotifications": "Clear all notifications",
+    "confirm": "Confirm",
+    "copy": "Copy to clipboard",
+    "good": "Looks good!",
+    "loading": "Loading...",
+    "loadingUser": "Loading user...",
+    "name": "Name",
+    "notifications_false": "Show notifications",
+    "notifications_true": "Hide notifications",
+    "password_false": "Show password",
+    "password_true": "Hide password",
+    "refresh": "Refresh",
+    "unknownError": "An unknown error occurred."
+  },
+  "errors": {
+    "notFound": {
+      "profiles": {
+        "button": "Go to Profiles",
+        "message": "Oops! The profile you're looking for doesn't exist or has been deleted.",
+        "subtitle": "Profile Not Found!"
+      },
+      "specifications": {
+        "button": "Go to Specifications",
+        "message": "Oops! The specification you're looking for doesn't exist or has been deleted.",
+        "subtitle": "Specification Not Found!"
+      },
+      "unknown": {
+        "button": "Go to Home",
+        "message": "Oops! The page you're looking for doesn't exist or has been moved.",
+        "subtitle": "Page Not Found!"
+      }
+    },
+    "scraper": {
+      "currency": {
+        "message": "Price is in {{unit}}, support EUR only.",
+        "title": "Unexpected currency on \"{{name}}\""
+      },
+      "handler": "Handler: {{name}}",
+      "on": "Error on \"{{name}}\"",
+      "parse": "Error parsing scraper entry"
+    },
+    "specification": {
+      "activate": "Error while activating specification",
+      "archive": "Error while archiving specification",
+      "deleteBatch": "Error while deleting specifications",
+      "delete": "Error while deleting specification {{name}}",
+      "upload": "Error while uploading specification"
+    },
+    "profile": {
+      "delete": "Error while deleting profile {{name}}",
+      "deleteBatch": "Error while deleting profiles",
+      "save": "Error while saving profile",
+      "update": "Error while updating profile"
+    }
+  },
+  "header": {
+    "backToSSO": "Back to SSO",
+    "home": "Home",
+    "openProfileMenu": "Open profile menu",
+    "profiles": "Profiles",
+    "specifications": "Specifications",
+    "toggleTheme": "Toggle theme"
+  },
+  "scraper": {
+    "advancedSearch": "Advanced Search",
+    "allBrands": "All brands",
+    "ascendingPrice": "Ascending price",
+    "brands": "Brands",
+    "descendingPrice": "Descending price",
+    "description": "Description",
+    "noResults": "No results found.",
+    "picture": "Picture",
+    "price": "Price",
+    "search": "Search",
+    "searchContent": "Search content",
+    "sortBy": "Sort by",
+    "stock": "Stock",
+    "website": "Website"
+  },
+  "profile": {
+    "deleteAllConfirm": "Are you sure you want to delete all profiles?",
+    "deleteAllTitle": "Delete profiles",
+    "deleteAllTooltip": "Delete all profiles",
+    "deleteConfirm": "Are you sure you want to delete the profile \"{{name}}\"?",
+    "deleteTitle": "Delete profile",
+    "deleteTooltip": "Delete this profile",
+    "edit": "Edit profile",
+    "enterName": "Enter profile name",
+    "inputLabel": "Profile's \"{{name}}\" input",
+    "inputPlaceholder": "Enter \"{{name}}\"",
+    "loading": "Loading profiles...",
+    "loading_one": "Loading profile \"{{name}}\"...",
+    "loadingRequirements": "Loading requirements...",
+    "name": "Profile's name",
+    "notFound": "No profiles found.",
+    "profiles": "Profiles",
+    "save": "Save profile",
+    "searchSpecifications": "Search specifications",
+    "selectSpecification": "Select specification",
+    "specification": "Profile's specification",
+    "view": "View profile"
+  },
+  "specification": {
+    "actionConfirm": "Are you sure you want to {{action}} the specification \"{{name}}\"?",
+    "actionTitle": "{{action, capitalize}} specification",
+    "actionTooltip": "{{action, capitalize}} this specification",
+    "activate": "activate",
+    "archive": "archive",
+    "content": "Specification content",
+    "deleteAllConfirm": "Are you sure you want to delete all specifications?",
+    "deleteAllTitle": "Delete specifications",
+    "deleteAllTooltip": "Delete all specifications",
+    "deleteConfirm": "Are you sure you want to delete the specification \"{{name}}\"?",
+    "deleteTitle": "Delete specification",
+    "deleteTooltip": "Delete this specification",
+    "download": "Download",
+    "loading": "Loading specifications...",
+    "loading_one": "Loading specification \"{{name}}\"...",
+    "notFound": "No specifications found.",
+    "save": "Save specification",
+    "specifications": "Specifications",
+    "status": "Status",
+    "view": "View specification"
+  }
+}

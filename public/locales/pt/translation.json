@@ -1,0 +1,130 @@
+{
+  "common": {
+    "actions": "Ações",
+    "back": "Voltar",
+    "cancel": "Cancelar",
+    "clearNotifications": "Limpar todas as notificações",
+    "confirm": "Confirmar",
+    "copy": "Copiar para a área de transferência",
+    "good": "Parece correto!",
+    "loading": "A carregar...",
+    "loadingUser": "A carregar utilizador...",
+    "name": "Nome",
+    "notifications_false": "Mostrar notificações",
+    "notifications_true": "Esconder notificações",
+    "password_false": "Mostrar palavra-passe",
+    "password_true": "Esconder palavra-passe",
+    "refresh": "Atualizar",
+    "unknownError": "Ocorreu um erro desconhecido."
+  },
+  "errors": {
+    "notFound": {
+      "profiles": {
+        "button": "Ir para Perfis",
+        "message": "Oops! O perfil que procura não existe ou foi eliminado.",
+        "subtitle": "Perfil não encontrado!"
+      },
+      "specifications": {
+        "button": "Ir para Especificações",
+        "message": "Oops! A especificação que procura não existe ou foi eliminada.",
+        "subtitle": "Especificação não encontrada!"
+      },
+      "unknown": {
+        "button": "Ir para Início",
+        "message": "Oops! A página que procura não existe ou foi movida.",
+        "subtitle": "Página não encontrada!"
+      }
+    },
+    "scraper": {
+      "currency": {
+        "message": "O preço está em {{unit}}, apenas EUR é suportado.",
+        "title": "Moeda inesperada em \"{{name}}\""
+      },
+      "handler": "Handler: {{name}}",
+      "on": "Erro em \"{{name}}\"",
+      "parse": "Erro ao processar entrada do scraper"
+    },
+    "specification": {
+      "activate": "Erro ao ativar a especificação",
+      "archive": "Erro ao arquivar a especificação",
+      "deleteBatch": "Erro ao eliminar especificações",
+      "delete": "Erro ao eliminar a especificação {{name}}",
+      "upload": "Erro ao carregar a especificação"
+    },
+    "profile": {
+      "delete": "Erro ao eliminar o perfil {{name}}",
+      "deleteBatch": "Erro ao eliminar perfis",
+      "save": "Erro ao guardar o perfil",
+      "update": "Erro ao atualizar o perfil"
+    }
+  },
+  "header": {
+    "backToSSO": "Voltar ao SSO",
+    "home": "Início",
+    "openProfileMenu": "Abrir menu de perfil",
+    "profiles": "Perfis",
+    "specifications": "Especificações",
+    "toggleTheme": "Alternar tema"
+  },
+  "scraper": {
+    "advancedSearch": "Pesquisa Avançada",
+    "allBrands": "Todas as marcas",
+    "ascendingPrice": "Preço ascendente",
+    "brands": "Marcas",
+    "descendingPrice": "Preço descendente",
+    "description": "Descrição",
+    "noResults": "Sem resultados.",
+    "picture": "Imagem",
+    "price": "Preço",
+    "search": "Pesquisar",
+    "searchContent": "Pesquisar conteúdo",
+    "sortBy": "Ordenar por",
+    "stock": "Stock",
+    "website": "Website"
+  },
+  "profile": {
+    "deleteAllConfirm": "Tem a certeza que pretende eliminar todos os perfis?",
+    "deleteAllTitle": "Eliminar perfis",
+    "deleteAllTooltip": "Eliminar todos os perfis",
+    "deleteConfirm": "Tem a certeza que pretende eliminar o perfil \"{{name}}\"?",
+    "deleteTitle": "Eliminar perfil",
+    "deleteTooltip": "Eliminar este perfil",
+    "edit": "Editar perfil",
+    "enterName": "Introduza o nome do perfil",
+    "inputLabel": "Requisito \"{{name}}\" do perfil",
+    "inputPlaceholder": "Introduza \"{{name}}\"",
+    "loading": "A carregar perfis...",
+    "loading_one": "A carregar perfil \"{{name}}\"...",
+    "loadingRequirements": "A carregar requisitos...",
+    "name": "Nome do perfil",
+    "notFound": "Nenhum perfil encontrado.",
+    "profiles": "Perfis",
+    "save": "Guardar perfil",
+    "searchSpecifications": "Pesquisar especificações",
+    "selectSpecification": "Selecionar especificação",
+    "specification": "Especificação do perfil",
+    "view": "Ver perfil"
+  },
+  "specification": {
+    "actionConfirm": "Tem a certeza que pretende {{action}} a especificação \"{{name}}\"?",
+    "actionTitle": "{{action, capitalize}} especificação",
+    "actionTooltip": "{{action, capitalize}} esta especificação",
+    "activate": "ativar",
+    "archive": "arquivar",
+    "content": "Conteúdo da especificação",
+    "deleteAllConfirm": "Tem a certeza que pretende eliminar todas as especificações?",
+    "deleteAllTitle": "Eliminar especificações",
+    "deleteAllTooltip": "Eliminar todas as especificações",
+    "deleteConfirm": "Tem a certeza que pretende eliminar a especificação \"{{name}}\"?",
+    "deleteTitle": "Eliminar especificação",
+    "deleteTooltip": "Eliminar esta especificação",
+    "download": "Descarregar",
+    "loading": "A carregar especificações...",
+    "loading_one": "A carregar especificação \"{{name}}\"...",
+    "notFound": "Nenhuma especificação encontrada.",
+    "save": "Guardar especificação",
+    "specifications": "Especificações",
+    "status": "Estado",
+    "view": "Ver especificação"
+  }
+}
