@@ -6,6 +6,7 @@ import { HttpService } from "../http/http-service";
 import { type AxiosResponse, isAxiosError } from "axios";
 import { HttpError } from "../../models/http/http-error";
 import { HttpStatusCode } from "../../models/http/http-status-code";
+import { HttpChallenge } from "../../models/http/http-challenge-error";
 import { HttpFailureResponse } from "../../models/http/http-failure-response";
 import {
   type EventSourceMessage,
@@ -24,15 +25,17 @@ export class AxiosHttpService implements HttpService {
     this.#axios.interceptors.response.use(
       (response) => response,
       (error) => {
-        if (isAxiosError(error) && error.response?.status === 401) {
-          location.assign(
-            `/auth/challenge?redirect=${encodeURIComponent(
-              `${location.pathname}${location.search}${location.hash}`,
-            )}`,
-          );
+        if (!isAxiosError(error) || error.response?.status !== 401) {
+          return Promise.reject(error);
         }
 
-        return Promise.reject(error);
+        location.assign(
+          `/auth/challenge?redirect=${encodeURIComponent(
+            `${location.pathname}${location.search}${location.hash}`,
+          )}`,
+        );
+
+        return Promise.reject(HttpChallenge);
       },
     );
   }
