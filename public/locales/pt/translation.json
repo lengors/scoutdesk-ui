@@ -9,6 +9,7 @@
     "good": "Parece correto!",
     "loading": "A carregar...",
     "loadingUser": "A carregar utilizador...",
+    "loginRedirect": "Será redirecionado para a página de login SSO...",
     "name": "Nome",
     "notifications_false": "Mostrar notificações",
     "notifications_true": "Esconder notificações",
