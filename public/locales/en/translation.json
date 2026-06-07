@@ -9,6 +9,7 @@
     "good": "Looks good!",
     "loading": "Loading...",
     "loadingUser": "Loading user...",
+    "loginRedirect": "You will be redirected to the SSO login page...",
     "name": "Name",
     "notifications_false": "Show notifications",
     "notifications_true": "Hide notifications",
