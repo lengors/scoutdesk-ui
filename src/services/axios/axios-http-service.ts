@@ -20,6 +20,23 @@ export class AxiosHttpService implements HttpService {
     baseURL: "/api/v1",
   });
 
+  constructor() {
+    this.#axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (isAxiosError(error) && error.response?.status === 401) {
+          location.assign(
+            `/auth/challenge?redirect=${encodeURIComponent(
+              `${location.pathname}${location.search}${location.hash}`,
+            )}`,
+          );
+        }
+
+        return Promise.reject(error);
+      },
+    );
+  }
+
   delete<TOutput>(
     url: string,
     parser: HttpResponseParser<TOutput>,
@@ -243,10 +260,7 @@ export class AxiosHttpService implements HttpService {
         return await resolvedParser(resolvedResponse.data);
       }
 
-      return await AxiosHttpService.#handleStreamResponse(
-        reader,
-        resolvedParser,
-      );
+      return AxiosHttpService.#handleStreamResponse(reader, resolvedParser);
     } catch (error) {
       if (isAxiosError(error) && error.response !== undefined) {
         throw new HttpError(
