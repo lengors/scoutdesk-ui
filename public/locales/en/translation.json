@@ -75,6 +75,7 @@
     "descendingPrice": "Descending price",
     "description": "Description",
     "noResults": "No results found.",
+    "notApplicable": "N/A",
     "picture": "Picture",
     "price": "Price",
     "search": "Search",
