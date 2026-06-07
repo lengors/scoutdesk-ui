@@ -1,3 +1,9 @@
+# [v1.0.0-dev.6](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2026-06-07)
+
+## ✨ New Features
+
+- [`ad0edfb`](https://github.com/lengors/scoutdesk-ui/commit/ad0edfb) Add support for authentication challenge
+
 # [v1.0.0-dev.5](https://github.com/lengors/scoutdesk-ui/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-03-07)
 
 ## ✨ New Features
