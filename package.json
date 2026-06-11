@@ -1,7 +1,7 @@
 {
   "name": "scoutdesk-ui",
   "private": true,
-  "version": "1.1.0-alpha.1",
+  "version": "1.1.1-dev.1",
   "description": "WebScout management service UI",
   "keywords": [
     "protoscout",
