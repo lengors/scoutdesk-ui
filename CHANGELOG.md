@@ -1,3 +1,9 @@
+# [v1.1.1-beta.1](https://github.com/lengors/scoutdesk-ui/compare/1.1.0...1.1.1-beta.1) (2026-06-11)
+
+## 🐛 Bug Fixes
+
+- [`1d7de98`](https://github.com/lengors/scoutdesk-ui/commit/1d7de98) Fix home page layout
+
 # [v1.1.1-alpha.1](https://github.com/lengors/scoutdesk-ui/compare/1.1.0...1.1.1-alpha.1) (2026-06-11)
 
 ## 🐛 Bug Fixes
