@@ -109,168 +109,176 @@ export function ScraperView({ form: queryForm, query }: ScraperViewProps) {
   }, [fetchStatus, stateManager]);
 
   return (
-    <Container fluid="lg">
+    <Container fluid>
       <Row className="align-self-start flex-grow-1 g-3 mb-3">
-        <Col xs={12} />
-        <Col className="d-none d-lg-block" lg={4} xxl={3}>
-          <CardPanel>
-            <Offcanvas
-              onHide={() => setShowAdvancedSearch(false)}
-              show={showAdvancedSearch}
-              responsive="lg"
-            >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title>{t("scraper.advancedSearch")}</Offcanvas.Title>
-              </Offcanvas.Header>
-              <Offcanvas.Body>
-                <Container className="p-0" fluid>
-                  <Form noValidate>
-                    <Row className="g-3">
-                      <Col xs={12}>
-                        <Accordion alwaysOpen flush>
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                              {t("scraper.brands")}
-                            </Accordion.Header>
-                            <Accordion.Body>
-                              <Form.Group>
-                                <Form.Check
-                                  checked={selectionMode === "all"}
-                                  label={t("scraper.allBrands")}
-                                  onChange={(event) =>
-                                    stateManager.selectAll(
-                                      event.target.checked ? "all" : "none",
-                                    )
-                                  }
-                                  ref={(instance) => {
-                                    if (instance !== null) {
-                                      instance.indeterminate =
-                                        selectionMode === "indeterminate";
-                                    }
-                                  }}
-                                  type="checkbox"
-                                />
-                                {brands.map(([value, checkedValue]) => (
-                                  <Form.Check
-                                    checked={checkedValue}
-                                    key={value}
-                                    label={capitalize(value)}
-                                    onChange={(event) =>
-                                      stateManager.toggleBrand(
-                                        value,
-                                        event.target.checked,
-                                      )
-                                    }
-                                    type="checkbox"
-                                  />
-                                ))}
-                              </Form.Group>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>
-                              {t("scraper.sortBy")}
-                            </Accordion.Header>
-                            <Accordion.Body>
-                              <Form.Group>
-                                <Form.Label>{t("scraper.price")}</Form.Label>
-                                <Form.Check
-                                  checked={entryDirection === "forward"}
-                                  label={t("scraper.ascendingPrice")}
-                                  onChange={() =>
-                                    stateManager.sort("price.asc")
-                                  }
-                                  type="radio"
-                                  value="asc"
-                                />
-                                <Form.Check
-                                  checked={entryDirection === "backward"}
-                                  label={t("scraper.descendingPrice")}
-                                  onChange={() =>
-                                    stateManager.sort("price.desc")
-                                  }
-                                  type="radio"
-                                  value="desc"
-                                />
-                              </Form.Group>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                        </Accordion>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Container>
-              </Offcanvas.Body>
-            </Offcanvas>
-          </CardPanel>
-        </Col>
-        <Col xs={12} lg={8} xxl={9}>
+        <Col className="mx-auto" xxl={10}>
           <Row className="g-3">
-            <Col xs={12}>
-              <ScraperForm form={queryForm}>
-                <Col className="d-lg-none" xs="auto">
-                  <Form.Group>
-                    <Form.Label
-                      className="invisible"
-                      htmlFor={toggleButtonId}
-                      style={{ whiteSpace: "pre" }}
-                    >
-                      {" "}
-                    </Form.Label>
-                    <Form.Control
-                      as={Button}
-                      id={toggleButtonId}
-                      onClick={() => setShowAdvancedSearch(true)}
-                      type="button"
-                      variant="outline-secondary"
-                    >
-                      <List />
-                    </Form.Control>
-                  </Form.Group>
-                </Col>
-                {fetchStatus === "fetching" && (
-                  <Col className="order-5" xs={12}>
-                    <ProgressBar
-                      animated
-                      now={100}
-                      label={t("common.loading")}
-                    />
-                  </Col>
-                )}
-              </ScraperForm>
+            <Col xs={12} />
+            <Col className="d-none d-xxl-block" xxl={3}>
+              <CardPanel>
+                <Offcanvas
+                  onHide={() => setShowAdvancedSearch(false)}
+                  show={showAdvancedSearch}
+                  responsive="xxl"
+                >
+                  <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>
+                      {t("scraper.advancedSearch")}
+                    </Offcanvas.Title>
+                  </Offcanvas.Header>
+                  <Offcanvas.Body>
+                    <Container className="p-0" fluid>
+                      <Form noValidate>
+                        <Row className="g-3">
+                          <Col xs={12}>
+                            <Accordion alwaysOpen flush>
+                              <Accordion.Item eventKey="0">
+                                <Accordion.Header>
+                                  {t("scraper.brands")}
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                  <Form.Group>
+                                    <Form.Check
+                                      checked={selectionMode === "all"}
+                                      label={t("scraper.allBrands")}
+                                      onChange={(event) =>
+                                        stateManager.selectAll(
+                                          event.target.checked ? "all" : "none",
+                                        )
+                                      }
+                                      ref={(instance) => {
+                                        if (instance !== null) {
+                                          instance.indeterminate =
+                                            selectionMode === "indeterminate";
+                                        }
+                                      }}
+                                      type="checkbox"
+                                    />
+                                    {brands.map(([value, checkedValue]) => (
+                                      <Form.Check
+                                        checked={checkedValue}
+                                        key={value}
+                                        label={capitalize(value)}
+                                        onChange={(event) =>
+                                          stateManager.toggleBrand(
+                                            value,
+                                            event.target.checked,
+                                          )
+                                        }
+                                        type="checkbox"
+                                      />
+                                    ))}
+                                  </Form.Group>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                              <Accordion.Item eventKey="1">
+                                <Accordion.Header>
+                                  {t("scraper.sortBy")}
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                  <Form.Group>
+                                    <Form.Label>
+                                      {t("scraper.price")}
+                                    </Form.Label>
+                                    <Form.Check
+                                      checked={entryDirection === "forward"}
+                                      label={t("scraper.ascendingPrice")}
+                                      onChange={() =>
+                                        stateManager.sort("price.asc")
+                                      }
+                                      type="radio"
+                                      value="asc"
+                                    />
+                                    <Form.Check
+                                      checked={entryDirection === "backward"}
+                                      label={t("scraper.descendingPrice")}
+                                      onChange={() =>
+                                        stateManager.sort("price.desc")
+                                      }
+                                      type="radio"
+                                      value="desc"
+                                    />
+                                  </Form.Group>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            </Accordion>
+                          </Col>
+                        </Row>
+                      </Form>
+                    </Container>
+                  </Offcanvas.Body>
+                </Offcanvas>
+              </CardPanel>
             </Col>
-            <Col xs={12}>
-              {count === 0 && fetchStatus !== "fetching" ? (
-                <CardPanel>
-                  <Row className="g-3">
-                    <Col xs={12}>
-                      <StatusIndicator>
-                        {t("scraper.noResults")}
-                      </StatusIndicator>
+            <Col xs={12} xxl={9}>
+              <Row className="g-3">
+                <Col xs={12}>
+                  <ScraperForm form={queryForm}>
+                    <Col className="d-xxl-none" xs="auto">
+                      <Form.Group>
+                        <Form.Label
+                          className="invisible"
+                          htmlFor={toggleButtonId}
+                          style={{ whiteSpace: "pre" }}
+                        >
+                          {" "}
+                        </Form.Label>
+                        <Form.Control
+                          as={Button}
+                          id={toggleButtonId}
+                          onClick={() => setShowAdvancedSearch(true)}
+                          type="button"
+                          variant="outline-secondary"
+                        >
+                          <List />
+                        </Form.Control>
+                      </Form.Group>
                     </Col>
-                  </Row>
-                </CardPanel>
-              ) : (
-                <Paginated
-                  count={count}
-                  entries={paginatedEntries}
-                  page={pageOffset}
-                  render={(paginatedEntries) => (
+                    {fetchStatus === "fetching" && (
+                      <Col className="order-5" xs={12}>
+                        <ProgressBar
+                          animated
+                          now={100}
+                          label={t("common.loading")}
+                        />
+                      </Col>
+                    )}
+                  </ScraperForm>
+                </Col>
+                <Col xs={12}>
+                  {count === 0 && fetchStatus !== "fetching" ? (
                     <CardPanel>
                       <Row className="g-3">
                         <Col xs={12}>
-                          <ScraperTable entries={paginatedEntries} />
+                          <StatusIndicator>
+                            {t("scraper.noResults")}
+                          </StatusIndicator>
                         </Col>
                       </Row>
                     </CardPanel>
+                  ) : (
+                    <Paginated
+                      count={count}
+                      entries={paginatedEntries}
+                      page={pageOffset}
+                      render={(paginatedEntries) => (
+                        <CardPanel>
+                          <Row className="g-3">
+                            <Col xs={12}>
+                              <ScraperTable entries={paginatedEntries} />
+                            </Col>
+                          </Row>
+                        </CardPanel>
+                      )}
+                      setPage={setPageOffset}
+                      setSize={setPageSize}
+                      size={pageSize}
+                      sizeOptions={[20, 50, 100]}
+                      span={3}
+                    />
                   )}
-                  setPage={setPageOffset}
-                  setSize={setPageSize}
-                  size={pageSize}
-                  sizeOptions={[20, 50, 100]}
-                  span={3}
-                />
-              )}
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>
