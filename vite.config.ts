@@ -21,6 +21,10 @@ export default ({ mode }: { mode: string }) => {
           mode === "development"
             ? z._default(z.string(), "scoutdesk-developer")
             : z.optional(z.string()),
+        AUTHENTIK_IMPERSONATED_ROLES:
+          mode === "development"
+            ? z._default(z.string(), "DEVELOPER")
+            : z.optional(z.string()),
         HOST: z._default(z.string(), "localhost"),
         PORT: z._default(z.coerce.number(), 5173),
       }),
@@ -80,6 +84,7 @@ export default ({ mode }: { mode: string }) => {
             ? {
                 headers: {
                   "X-authentik-username": env.AUTHENTIK_IMPERSONATED_USER,
+                  "X-authentik-roles": env.AUTHENTIK_IMPERSONATED_ROLES,
                 },
               }
             : {}),

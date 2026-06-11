@@ -1,3 +1,21 @@
+# [v1.1.1-alpha.1](https://github.com/lengors/scoutdesk-ui/compare/1.1.0...1.1.1-alpha.1) (2026-06-11)
+
+## 🐛 Bug Fixes
+
+- [`1d7de98`](https://github.com/lengors/scoutdesk-ui/commit/1d7de98) Fix home page layout
+
+# [v1.1.1-dev.1](https://github.com/lengors/scoutdesk-ui/compare/1.1.0...1.1.1-dev.1) (2026-06-11)
+
+## 🐛 Bug Fixes
+
+- [`1d7de98`](https://github.com/lengors/scoutdesk-ui/commit/1d7de98) Fix home page layout
+
+# [v1.1.0](https://github.com/lengors/scoutdesk-ui/compare/1.0.0...1.1.0) (2026-06-07)
+
+## ✨ New Features
+
+- [`493cdbf`](https://github.com/lengors/scoutdesk-ui/commit/493cdbf) Add proper message for auth challenge redirect
+
 # [v1.1.0-beta.1](https://github.com/lengors/scoutdesk-ui/compare/1.0.0...1.1.0-beta.1) (2026-06-07)
 
 ## ✨ New Features
